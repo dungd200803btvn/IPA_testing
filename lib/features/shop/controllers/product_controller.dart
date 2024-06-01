@@ -3,8 +3,6 @@ import 'package:t_store/data/dummy_data.dart';
 import 'package:t_store/data/repositories/product/product_repository.dart';
 import 'package:t_store/features/shop/models/product_model.dart';
 import 'package:t_store/utils/enum/enum.dart';
-import 'package:t_store/utils/popups/loader.dart';
-
 class ProductController extends GetxController{
   static ProductController get instance => Get.find();
   final isLoading = false.obs;
@@ -12,9 +10,8 @@ class ProductController extends GetxController{
   final productRepository = Get.put(ProductRepository());
   @override
   void onInit() {
-    productRepository.uploadDummyData(TDummyData.products);
-    //fetchFeaturedProducts();
-    print("Loi o controller: ");
+  //  productRepository.uploadDummyData(TDummyData.products);
+    fetchFeaturedProducts();
     super.onInit();
   }
   void fetchFeaturedProducts() async{
