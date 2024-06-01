@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:t_store/features/authentication/controller/signup/signup_controller.dart';
+import '../../../../../utils/constants/colors.dart';
+import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/constants/text_string.dart';
+import '../../../../../utils/helper/helper_function.dart';
+
+class TTermsAndConditionCheckBox extends StatelessWidget {
+  const TTermsAndConditionCheckBox({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = SignupController.instance;
+    final dark = DHelperFunctions.isDarkMode(context);
+    return Row(
+      children: [
+        SizedBox(
+          width: 24,
+          height: 24,
+          child: Obx(
+            () => Checkbox(
+              value: controller.privacyPolacy.value,
+              onChanged: (value) => controller.privacyPolacy.value =
+                  !controller.privacyPolacy.value,
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: DSize.spaceBtwItem,
+        ),
+        Text.rich(TextSpan(children: [
+          TextSpan(
+            text: DText.iAgreeTo,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          TextSpan(
+            text: " " + DText.privacyPolicy,
+            style: Theme.of(context).textTheme.bodyMedium!.apply(
+                  color: dark ? DColor.white : DColor.primary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: dark ? DColor.white : DColor.primary,
+                ),
+          ),
+          TextSpan(
+            text: " " + DText.and,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          TextSpan(
+            text: " " + DText.termsOfUse,
+            style: Theme.of(context).textTheme.bodyMedium!.apply(
+                  color: dark ? DColor.white : DColor.primary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: dark ? DColor.white : DColor.primary,
+                ),
+          ),
+        ])),
+      ],
+    );
+  }
+}
