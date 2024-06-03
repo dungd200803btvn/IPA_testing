@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -12,24 +11,36 @@ class ProductRepository extends GetxController {
 
   //get limited featured products
   Future<List<ProductModel>> getFeaturedProducts() async {
-    final snapshot = await _db.collection("Products").get();
-    return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
-    // } on FirebaseException catch (e) {
-    //   throw e.message!;
-    // } on PlatformException catch (e) {
-    //   throw e.message!;
-    // } catch (e) {
-    //   throw "message: " + e.toString();
-    // }
+    try {
+      final snapshot = await _db.collection("Products").where('IsFeatured', isEqualTo: true)
+          .get();
+      return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw "message: " + e.toString();
+    }
   }
-
-  //upload to cloud
+  Future<List<ProductModel>> getAllProducts() async {
+    try {
+      final snapshot = await _db.collection("Products")
+          .get();
+      return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw "message: " + e.toString();
+    }
+  }
   //upload to cloud
   Future<void> uploadDummyData(List<ProductModel> products) async {
     final storage = Get.put(TFirebaseStorageService());
     for (var product in products) {
-      final thumbnail =
-      await storage.getImageDataFromAssets(product.thumbnail);
+      final thumbnail = await storage.getImageDataFromAssets(product.thumbnail);
       final url = await storage.uploadImageData(
           'Products/Images', thumbnail, product.thumbnail.toString());
       product.thumbnail = url;
@@ -52,17 +63,29 @@ class ProductRepository extends GetxController {
         for (var variation in product.productVariations!) {
           //get image data from local
           final assetImage =
-          await storage.getImageDataFromAssets(variation.image);
+              await storage.getImageDataFromAssets(variation.image);
           //upload image
           final url = await storage.uploadImageData(
               'Products/Images', assetImage, variation.image);
           variation.image = url;
         }
       }
-
       // Lưu dữ liệu cập nhật
-      await _db.collection('Products').doc(product.id).set(product.toJson()); // Gọi phương thức toJson để chuyển đổi product thành JSON
+      await _db.collection('Products').doc(product.id).set(product
+          .toJson()); // Gọi phương thức toJson để chuyển đổi product thành JSON
     }
   }
-
+  Future<List<ProductModel>> fetchProductsByQuery(Query query) async{
+    try{
+      final querySnapshot = await query.get();
+      final List<ProductModel> productList = querySnapshot.docs.map((doc) => ProductModel.fromQuerySnapshot(doc)).toList();
+      return productList;
+    }on FirebaseException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw "message: " + e.toString();
+    }
+  }
 }
