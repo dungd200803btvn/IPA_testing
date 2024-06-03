@@ -28,15 +28,17 @@ class TBrandTitleWithVerifiedIcon extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TBranchTitleText(
-          title: title,
-          color: textColor,
-          textAlign: textAlign,
-          branchTextSize: branchTextSize,
-          maxLines: maxLines,
+        Expanded(
+          child: TBranchTitleText(
+            title: title,
+            color: textColor,
+            textAlign: textAlign,
+            branchTextSize: branchTextSize,
+            maxLines: maxLines,
+          ),
         ),
-         const SizedBox(width: DSize.xs),
-         Icon(Iconsax.verify5, color: iconColor , size: DSize.iconXs)
+        const SizedBox(width: DSize.xs),
+        Icon(Iconsax.verify5, color: iconColor, size: DSize.iconXs),
       ],
     );
   }

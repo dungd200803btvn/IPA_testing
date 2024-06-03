@@ -50,6 +50,7 @@ class TProductCardVertical extends StatelessWidget {
                         imageUrl: product.thumbnail, applyImageRadius: true, isNetWorkImage: true,),
                    ),
                   //Sale Tag
+                  if(salePercentage!=null)
                   Positioned(
                     top: 12,
                     child: TRoundedContainer(

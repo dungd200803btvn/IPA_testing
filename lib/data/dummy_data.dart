@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:math';
 import 'package:t_store/features/shop/models/banner_model.dart';
 import 'package:t_store/features/shop/models/brand_model.dart';
 import 'package:t_store/features/shop/models/product_attribute_model.dart';
@@ -7,7 +6,6 @@ import 'package:t_store/features/shop/models/product_model.dart';
 import 'package:t_store/features/shop/models/product_variation_model.dart';
 import 'package:t_store/routes/routes.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
-import 'package:t_store/utils/enum/enum.dart';
 import '../features/shop/models/category_model.dart';
 import 'package:faker/faker.dart';
 
@@ -43,115 +41,36 @@ class TDummyData {
 // Assuming you add the faker package
 
   Faker faker = Faker();
-  List<String> imageUrls = [
-    TImages.productImage1,
-    TImages.productImage2,
-    TImages.productImage3,
-    TImages.productImage4,
-    TImages.productImage5,
-    TImages.productImage6,
-    TImages.productImage7,
-    TImages.productImage8,
-    TImages.productImage9,
-    TImages.productImage10,
-    TImages.productImage11,
-    TImages.productImage12,
-    TImages.productImage13,
-    TImages.productImage14,
-    TImages.productImage15,
-    TImages.productImage16,
-    TImages.productImage17,
-    TImages.productImage18,
-    TImages.productImage19,
-    TImages.productImage20,
-    TImages.productImage21,
-    TImages.productImage22,
-    TImages.productImage23,
-    TImages.productImage24,
-    TImages.productImage25,
-    TImages.productImage26,
-    TImages.productImage27,
-    TImages.productImage28,
-    TImages.productImage29,
-    TImages.productImage30,
-    TImages.productImage31,
-    TImages.productImage32,
-    TImages.productImage33,
-    TImages.productImage34,
-    TImages.productImage35,
-    TImages.productImage36,
-    TImages.productImage37,
-    TImages.productImage38,
-    TImages.productImage39,
-    TImages.productImage40,
-    TImages.productImage41,
-    TImages.productImage42,
-    TImages.productImage43,
-    TImages.productImage44,
-    TImages.productImage45,
-    TImages.productImage46,
-    TImages.productImage47,
-    TImages.productImage48,
-    TImages.productImage49,
-    TImages.productImage50,
-    TImages.productImage51,
-    TImages.productImage52,
-    TImages.productImage53,
-    TImages.productImage54,
-    TImages.productImage55,
-    TImages.productImage56,
-    TImages.productImage57,
-    TImages.productImage58,
-    TImages.productImage59,
-    TImages.productImage60,
-    TImages.productImage61,
-    TImages.productImage62,
-    TImages.productImage63,
-    TImages.productImage64,
-    TImages.productImage65,
-    TImages.productImage66,
-    TImages.productImage67,
-    TImages.productImage68,
-    TImages.productImage69,
-    TImages.productImage70,
-    TImages.productImage71,
-    TImages.productImage72,
-    TImages.productImage73,
-    TImages.productImage74,
-    TImages.productImage75,
-    TImages.productImage76,
-    TImages.productImage77,
-  ];
 
-  List<ProductModel> generateRandomProducts(int count) {
-    List<ProductModel> products = [];
-    int random = Random().nextInt(77) + 1;
-    int random1 = Random().nextInt(100) + 1;
-    for (int i = 0; i < count; i++) {
-      products.add(ProductModel(
-        id: "00" + random1.toString(),
-        // Generate random unique ID (using a library like uuid)
-        stock: Random().nextInt(100) + 1,
-        // Random stock between 1 and 100
-        price: Random().nextDouble() * 990 + 10,
-        // Random price between $10 and $1000
-        title: faker.sport.name(),
-        // Generate random product name
-        thumbnail: imageUrls[random - 1],
-        // Placeholder image URL
-        productType: ProductType.single.toString(),
-        isFeatured: true,
-        sku: "sku",
-        description: "description",
-        categoryId: "1",
-        images: [],
-      ));
-    }
-    return products;
-  }
+  // List<ProductModel> generateRandomProducts(int count) {
+  //   List<ProductModel> products = [];
+  //   int random = Random().nextInt(77) + 1;
+  //   int random1 = Random().nextInt(100) + 1;
+  //   for (int i = 0; i < count; i++) {
+  //     products.add(ProductModel(
+  //       id: "00" + random1.toString(),
+  //       // Generate random unique ID (using a library like uuid)
+  //       stock: Random().nextInt(100) + 1,
+  //       // Random stock between 1 and 100
+  //       price: Random().nextDouble() * 990 + 10,
+  //       // Random price between $10 and $1000
+  //       title: faker.sport.name(),
+  //       // Generate random product name
+  //      /// thumbnail: imageUrls[random - 1],
+  //       // Placeholder image URL
+  //       productType: ProductType.single.toString(),
+  //       isFeatured: true,
+  //       sku: "sku",
+  //       description: "description",
+  //       categoryId: "1",
+  //       images: [],
+  //     ));
+  //   }
+  //   return products;
+  // }
 
-  static final List<ProductModel> products1 =
-      TDummyData().generateRandomProducts(3);
+  // static final List<ProductModel> products1 =
+  //     TDummyData().generateRandomProducts(3);
   static final List<ProductModel> products = [
     // ProductModel(id: '001',
     //     stock: 15,
@@ -751,5 +670,22 @@ class TDummyData {
         image: TImages.clothIcon,
         isFeatured: false,
         parentId: '3'),
+  ];
+
+  static final List<BrandModel> brands = [
+    BrandModel(id: '1', name: 'Nike', image: TImages.nikeLogo,isFeatured: true,productsCount: 265),
+    BrandModel(id: '2', name: 'Adidas', image: TImages.adidasLogo, isFeatured: true, productsCount: 320),
+    BrandModel(id: '3', name: 'Apple', image: TImages.appleLogo, isFeatured: true, productsCount: 150),
+    BrandModel(id: '4', name: 'Jordan', image: TImages.jordanLogo, isFeatured: true, productsCount: 100),
+    BrandModel(id: '5', name: 'Puma', image: TImages.pumaLogo, isFeatured: true, productsCount: 180),
+    BrandModel(id: '6', name: 'Zara', image: TImages.zaraLogo, isFeatured: true, productsCount: 200),
+    BrandModel(id: '7', name: 'Kenwood', image: TImages.kenwoodLogo, isFeatured: true, productsCount: 75),
+    BrandModel(id: '8', name: 'Herman Miller', image: TImages.hermanMillerLogo, isFeatured: true, productsCount: 50),
+    BrandModel(id: '9', name: 'Ikea', image: TImages.ikeaLogo, isFeatured: true, productsCount: 220),
+    BrandModel(id: '10', name: 'Acer', image: TImages.acerlogo, isFeatured: true, productsCount: 90),
+    BrandModel(id: '11', name: 'Rolex', image: TImages.casiologo, isFeatured: true, productsCount: 130),
+    BrandModel(id: '12', name: 'JBL', image: TImages.techGearLogo, isFeatured: true, productsCount: 60),
+    BrandModel(id: '13', name: 'Sun House', image: TImages.kitChenProLogo, isFeatured: true, productsCount: 40),
+    BrandModel(id: '14', name: 'Hoa Phat', image: TImages.officeComfortLogo, isFeatured: true, productsCount: 110),
   ];
 }
