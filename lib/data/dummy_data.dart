@@ -1,7 +1,9 @@
 import 'dart:core';
 import 'package:t_store/features/shop/models/banner_model.dart';
+import 'package:t_store/features/shop/models/brand_category_model.dart';
 import 'package:t_store/features/shop/models/brand_model.dart';
 import 'package:t_store/features/shop/models/product_attribute_model.dart';
+import 'package:t_store/features/shop/models/product_category_model.dart';
 import 'package:t_store/features/shop/models/product_model.dart';
 import 'package:t_store/features/shop/models/product_variation_model.dart';
 import 'package:t_store/routes/routes.dart';
@@ -687,5 +689,109 @@ class TDummyData {
     BrandModel(id: '12', name: 'JBL', image: TImages.techGearLogo, isFeatured: true, productsCount: 60),
     BrandModel(id: '13', name: 'Sun House', image: TImages.kitChenProLogo, isFeatured: true, productsCount: 40),
     BrandModel(id: '14', name: 'Hoa Phat', image: TImages.officeComfortLogo, isFeatured: true, productsCount: 110),
+  ];
+  static final List<BrandCategoryModel> brandCategorys = [
+    BrandCategoryModel(brandId: "1", categoryId: "1"),  // Nike - Sports
+    BrandCategoryModel(brandId: "1", categoryId: "8"),  // Nike - Sports Shoes
+    BrandCategoryModel(brandId: "1", categoryId: "9"),  // Nike - Tracksuits
+    BrandCategoryModel(brandId: "2", categoryId: "1"),  // Adidas - Sports
+    BrandCategoryModel(brandId: "2", categoryId: "8"),  // Adidas - Sports Shoes
+    BrandCategoryModel(brandId: "3", categoryId: "2"),  // Apple - Electronics
+    BrandCategoryModel(brandId: "3", categoryId: "14"), // Apple - Laptop
+    BrandCategoryModel(brandId: "4", categoryId: "1"),  // Jordan - Sports
+    BrandCategoryModel(brandId: "4", categoryId: "8"),  // Jordan - Sports Shoes
+    BrandCategoryModel(brandId: "5", categoryId: "1"),  // Puma - Sports
+    BrandCategoryModel(brandId: "5", categoryId: "8"),  // Puma - Sports Shoes
+    BrandCategoryModel(brandId: "6", categoryId: "3"),  // Zara - Clothes (assuming general clothing)
+    BrandCategoryModel(brandId: "6", categoryId: "16"),  // Zara - Shirts (if applicable)
+    BrandCategoryModel(brandId: "7", categoryId: "2"),  // Kenwood - Electronics
+    BrandCategoryModel(brandId: "8", categoryId: "5"),  // Herman Miller - Furniture
+    BrandCategoryModel(brandId: "8", categoryId: "11"), // Herman Miller - Bedroom furniture (if applicable)
+    BrandCategoryModel(brandId: "8", categoryId: "12"), // Herman Miller - Kitchen furniture (if applicable)
+    BrandCategoryModel(brandId: "8", categoryId: "13"), // Herman Miller - Office furniture (if applicable)
+    BrandCategoryModel(brandId: "9", categoryId: "5"),  // Ikea - Furniture
+    BrandCategoryModel(brandId: "9", categoryId: "11"), // Ikea - Bedroom furniture (if applicable)
+    BrandCategoryModel(brandId: "9", categoryId: "12"), // Ikea - Kitchen furniture (if applicable)
+    BrandCategoryModel(brandId: "10", categoryId: "2"),  // Acer - Electronics
+    BrandCategoryModel(brandId: "10", categoryId: "14"), // Acer - Laptop (if applicable)
+    BrandCategoryModel(brandId: "11", categoryId: "14"), // Rolex - Jewelry (assuming luxury watches)
+    BrandCategoryModel(brandId: "12", categoryId: "2"),  // JBL - Electronics
+    BrandCategoryModel(brandId: "13", categoryId: "5"),  // Sun House - Furniture (assuming home furniture)
+    BrandCategoryModel(brandId: "13", categoryId: "11"), // Sun House - Bedroom furniture (if applicable)
+    BrandCategoryModel(brandId: "13", categoryId: "12"), // Sun House - Kitchen furniture (if applicable)
+    BrandCategoryModel(brandId: "14", categoryId: "5"),  // Hoa Phat - Furniture (assuming office furniture)
+    BrandCategoryModel(brandId: "14", categoryId: "13"), // Hoa Phat - Office furniture
+  ];
+  static final List<ProductCategoryModel> productCategorys = [
+    // Sports
+    ProductCategoryModel(productId: "001", categoryId: "1"), // Green Nike sports shoe
+    ProductCategoryModel(productId: "002", categoryId: "3"), // Blue T-shirt for all ages
+    ProductCategoryModel(productId: "005", categoryId: "1"), // Nike Air Jordan Shoes
+    ProductCategoryModel(productId: "008", categoryId: "1"), // Adidas Running Shoes
+    ProductCategoryModel(productId: "009", categoryId: "1"), // Nike Air Jordon 19 Blue
+    ProductCategoryModel(productId: "010", categoryId: "14"), // Rolex Limited
+
+    // Furniture
+    ProductCategoryModel(productId: "011", categoryId: "5"), // Bluetooth Wireless Earphones
+    ProductCategoryModel(productId: "012", categoryId: "5"), // Electric Kettle 1.7L
+    ProductCategoryModel(productId: "013", categoryId: "5"), // Adjustable Office Chair
+
+    // Electronics
+    ProductCategoryModel(productId: "006", categoryId: "2"), // Samsung Galaxy S9
+    ProductCategoryModel(productId: "011", categoryId: "2"), // Bluetooth Wireless Earphones
+
+    // Clothes
+    ProductCategoryModel(productId: "002", categoryId: "3"), // Blue T-shirt for all ages
+    ProductCategoryModel(productId: "003", categoryId: "3"), // Leather brown Jacket
+    ProductCategoryModel(productId: "004", categoryId: "3"), // 4 Color collar t-shirt dry fit
+    ProductCategoryModel(productId: "016", categoryId: "3"), // Shirts
+
+    // Animals
+    ProductCategoryModel(productId: "007", categoryId: "4"), // Tomi Dog food
+
+    // Shoes
+    ProductCategoryModel(productId: "001", categoryId: "6"), // Green Nike sports shoe
+    ProductCategoryModel(productId: "005", categoryId: "6"), // Nike Air Jordan Shoes
+    ProductCategoryModel(productId: "008", categoryId: "6"), // Adidas Running Shoes
+    ProductCategoryModel(productId: "009", categoryId: "6"), // Nike Air Jordon 19 Blue
+
+    // Cosmetics
+    ProductCategoryModel(productId: "007", categoryId: "7"), // Tomi Dog food
+
+    // Jewelery
+    ProductCategoryModel(productId: "010", categoryId: "14"), // Rolex Limited
+    ProductCategoryModel(productId: "011", categoryId: "14"), // Bluetooth Wireless Earphones
+
+    // Sports Shoes
+    ProductCategoryModel(productId: "001", categoryId: "8"), // Green Nike sports shoe
+    ProductCategoryModel(productId: "008", categoryId: "8"), // Adidas Running Shoes
+    ProductCategoryModel(productId: "009", categoryId: "8"), // Nike Air Jordon 19 Blue
+
+    // Track suits
+    ProductCategoryModel(productId: "002", categoryId: "9"), // Blue T-shirt for all ages
+
+    // Sports Equipments
+    ProductCategoryModel(productId: "010", categoryId: "10"), // Rolex Limited
+
+    // Bedroom furniture
+    ProductCategoryModel(productId: "011", categoryId: "11"), // Bluetooth Wireless Earphones
+
+    // Kitchen furniture
+    ProductCategoryModel(productId: "012", categoryId: "12"), // Electric Kettle 1.7L
+
+    // Office furniture
+    ProductCategoryModel(productId: "013", categoryId: "13"), // Adjustable Office Chair
+
+    // Laptop
+    ProductCategoryModel(productId: "006", categoryId: "14"), // Samsung Galaxy S9
+
+    // Mobile
+    ProductCategoryModel(productId: "015", categoryId: "15"), // Mobile
+
+    // Cosmetics (again for Mobile)
+    ProductCategoryModel(productId: "015", categoryId: "7"), // Mobile
+
+    // Jewelery (again for Mobile)
+    ProductCategoryModel(productId: "015", categoryId: "14"), // Mobile
   ];
 }

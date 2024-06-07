@@ -36,7 +36,7 @@ class BrandProducts extends StatelessWidget {
                 height: DSize.spaceBtwSection,
               ),
               FutureBuilder(
-                future: controller.getBrandProducts(brand.id),
+                future: controller.getBrandProducts(brandId: brand.id),
                 builder: (context, snapshot) {
                   const loader = TVerticalProductShimmer();
                   final widget = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader);

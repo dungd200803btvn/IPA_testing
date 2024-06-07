@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:t_store/features/shop/models/brand_category_model.dart';
 import 'package:t_store/features/shop/models/brand_model.dart';
 
 import '../../../utils/exceptions/firebase_exceptions.dart';
@@ -46,4 +47,32 @@ final _db = FirebaseFirestore.instance;
       throw "message: "+e.toString() ;
     }
   }
+
+  //get brands for category
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId) async{
+    // try{
+      QuerySnapshot brandCategoryQuery = await _db.collection('BrandCategory').where('categoryId',isEqualTo: categoryId).get();
+      List<String> brandIds = brandCategoryQuery.docs.map((doc) => doc['brandId'] as String).toList();
+      final brandsQuery = await _db.collection('Brands').where("Id",whereIn: brandIds).limit(10).get();
+      List<BrandModel> brands = brandsQuery.docs.map((doc) => BrandModel.fromSnapshot(doc)).toList();
+      return brands;
+    // }on FirebaseException catch (e) {
+    //   throw TFirebaseException(e.code).message;
+    // } on PlatformException catch (e) {
+    //   throw TPlatformException(e.code).message;
+    // } catch (e) {
+    //   throw 'Something went wrong. Please try again';
+    // }
+  }
+
+  Future<void> uploadBrandCategoryData(List<BrandCategoryModel> brandcategory) async {
+    for (var v in brandcategory) {
+      await _db
+          .collection('BrandCategory')
+          .add(v.toJson());
+    }
+  }
+
+
+
 }

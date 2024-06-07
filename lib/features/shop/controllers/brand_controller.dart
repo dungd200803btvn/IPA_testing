@@ -12,9 +12,11 @@ class BrandController extends GetxController{
   final RxList<BrandModel> allBrands = <BrandModel>[].obs;
   final RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
   final brandRepository  = Get.put(BrandRepository());
+  final productRepository  = Get.put(ProductRepository());
   @override
   void onInit() {
-    //brandRepository.uploadDummyData(TDummyData.brands);
+   // brandRepository.uploadBrandCategoryData(TDummyData.brandCategorys);
+   // productRepository.uploadProductCategoryData(TDummyData.productCategorys);
     getFeaturedBrands();
     super.onInit();
   }
@@ -32,16 +34,26 @@ class BrandController extends GetxController{
   }
 
   //get products of a brand
-Future<List<ProductModel>> getBrandProducts(String brandId) async{
+Future<List<ProductModel>> getBrandProducts({required String brandId,int limit=-1 }) async{
     try{
-      final products = await ProductRepository.instance.getProductsForBrand( brandId: brandId);
+      final products = await ProductRepository.instance.getProductsForBrand( brandId: brandId,limit: limit);
       return products;
     }
     catch(e){
       TLoader.errorSnackbar(title: 'Oh Snap!',message: e.toString());
       return [];
     }
+}
 
+//get brands for category
+Future<List<BrandModel>> getBrandsForCategory(String categoryId) async{
+    // try{
+      final brands = await brandRepository.getBrandsForCategory(categoryId);
+      return brands;
+    // }catch(e){
+    //   TLoader.errorSnackbar(title: 'Oh Snap!',message: e.toString());
+    //   return [];
+    // }
 }
 
 
