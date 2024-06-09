@@ -80,6 +80,7 @@ class ProductRepository extends GetxController {
     }
   }
 
+
   Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
     try {
       final querySnapshot = await query.get();
@@ -87,6 +88,19 @@ class ProductRepository extends GetxController {
           .map((doc) => ProductModel.fromQuerySnapshot(doc))
           .toList();
       return productList;
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw "message: " + e.toString();
+    }
+  }
+
+  Future<List<ProductModel>> getFavouriteProducts(List<String> productIds) async {
+    try {
+      final snapshot = await _db.collection("Products").where(FieldPath.documentId,whereIn: productIds).get();
+      return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
     } on FirebaseException catch (e) {
       throw e.message!;
     } on PlatformException catch (e) {

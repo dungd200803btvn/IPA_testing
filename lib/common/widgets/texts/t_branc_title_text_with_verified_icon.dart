@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/texts/t_branch_title_text.dart';
@@ -28,7 +29,7 @@ class TBrandTitleWithVerifiedIcon extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
+        Flexible(
           child: TBranchTitleText(
             title: title,
             color: textColor,

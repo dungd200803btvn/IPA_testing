@@ -47,7 +47,6 @@ class CategoryController extends GetxController {
   Future<List<ProductModel>> getCategoryProducts({required String categoryId,int limit=10}) async{
 
       final products = await ProductRepository.instance.getProductsForCategory(categoryId: categoryId,limit: limit) ;
-      print("In ra thanh cong?");
       return products;
 
     // catch(e){
