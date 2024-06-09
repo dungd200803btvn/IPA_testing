@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:t_store/data/dummy_data.dart';
 import 'package:t_store/data/repositories/brands/brand_repository.dart';
 import 'package:t_store/data/repositories/product/product_repository.dart';
 import 'package:t_store/features/shop/models/brand_model.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -12,7 +11,6 @@ import 'package:t_store/features/shop/screens/product_details/widgets/rating_sha
 import 'package:t_store/features/shop/screens/product_reviews/product_review.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/enum/enum.dart';
-import 'package:t_store/utils/helper/helper_function.dart';
 
 import '../../models/product_model.dart';
 

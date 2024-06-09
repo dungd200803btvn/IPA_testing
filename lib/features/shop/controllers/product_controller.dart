@@ -26,7 +26,7 @@ class ProductController extends GetxController {
       featuredProducts.assignAll(products);
     } catch (e) {
       TLoader.errorSnackbar(title: 'Oh Snap', message: e.toString());
-      print("error: " + e.toString());
+      print("error: $e");
     } finally {
       isLoading.value = false;
     }

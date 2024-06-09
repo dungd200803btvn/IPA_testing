@@ -44,7 +44,7 @@ final _db = FirebaseFirestore.instance;
             .set(brand.toJson());
       }
     }  catch (e) {
-      throw "message: "+e.toString() ;
+      throw "message: $e" ;
     }
   }
 

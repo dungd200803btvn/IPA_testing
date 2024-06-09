@@ -3,14 +3,12 @@ import 'package:get/get.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/brands/t_brand_cart.dart';
 import 'package:t_store/common/widgets/layouts/grid_layout.dart';
-import 'package:t_store/common/widgets/products/sortable/sortable_product.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/shop/controllers/brand_controller.dart';
 import 'package:t_store/features/shop/screens/brand/brand_products.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/shimmer/brands_shimmer.dart';
-import '../../models/brand_model.dart';
 class AllBrandsScreen extends StatelessWidget {
   const AllBrandsScreen({super.key});
 

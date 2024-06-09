@@ -37,7 +37,7 @@ class TTermsAndConditionCheckBox extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
           TextSpan(
-            text: " " + DText.privacyPolicy,
+            text: " ${DText.privacyPolicy}",
             style: Theme.of(context).textTheme.bodyMedium!.apply(
                   color: dark ? DColor.white : DColor.primary,
                   decoration: TextDecoration.underline,
@@ -45,11 +45,11 @@ class TTermsAndConditionCheckBox extends StatelessWidget {
                 ),
           ),
           TextSpan(
-            text: " " + DText.and,
+            text: " ${DText.and}",
             style: Theme.of(context).textTheme.bodySmall,
           ),
           TextSpan(
-            text: " " + DText.termsOfUse,
+            text: " ${DText.termsOfUse}",
             style: Theme.of(context).textTheme.bodyMedium!.apply(
                   color: dark ? DColor.white : DColor.primary,
                   decoration: TextDecoration.underline,

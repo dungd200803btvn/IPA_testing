@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/features/personalization/controllers/update_name_controller.dart';
@@ -16,7 +14,7 @@ class ChangeName extends StatelessWidget {
     return Scaffold(
       appBar: TAppBar(showBackArrow: true,title: Text("Change name",style: Theme.of(context).textTheme.headlineSmall,)),
       body: Padding(
-        padding: EdgeInsets.all(DSize.defaultspace),
+        padding: const EdgeInsets.all(DSize.defaultspace),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,7 +29,7 @@ class ChangeName extends StatelessWidget {
                   controller: controller.firstName,
                   validator: (value)=> DValidator.validateEmptyText('Firstname', value),
                   expands: false,
-                  decoration: InputDecoration(labelText: DText.firstName,prefixIcon: Icon(Iconsax.user)),
+                  decoration: const InputDecoration(labelText: DText.firstName,prefixIcon: Icon(Iconsax.user)),
 
                 ),
                 const SizedBox(height: DSize.spaceBtwInputFielRadius,),
@@ -44,12 +42,12 @@ class ChangeName extends StatelessWidget {
                 ),
               ],
             )),
-            SizedBox(height: DSize.spaceBtwSection,),
+            const SizedBox(height: DSize.spaceBtwSection,),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: ()=> controller.updateUserName(),
-                child: Text("Save"),
+                child: const Text("Save"),
               ),
             )
 

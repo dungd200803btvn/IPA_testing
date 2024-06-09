@@ -23,7 +23,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw e.message!;
     } catch (e) {
-      throw "message: " + e.toString();
+      throw "message: $e";
     }
   }
 
@@ -36,7 +36,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw e.message!;
     } catch (e) {
-      throw "message: " + e.toString();
+      throw "message: $e";
     }
   }
 
@@ -93,7 +93,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw e.message!;
     } catch (e) {
-      throw "message: " + e.toString();
+      throw "message: $e";
     }
   }
 
@@ -106,7 +106,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw e.message!;
     } catch (e) {
-      throw "message: " + e.toString();
+      throw "message: $e";
     }
   }
 
@@ -132,7 +132,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw e.message!;
     } catch (e) {
-      throw "message: " + e.toString();
+      throw "message: $e";
     }
   }
 
@@ -165,7 +165,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw e.message!;
     } catch (e) {
-      throw "message: " + e.toString();
+      throw "message: $e";
     }
   }
   Future<List<ProductModel>> getProductsForCategory1(

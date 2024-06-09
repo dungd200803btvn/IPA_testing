@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -83,23 +82,22 @@ class UserController extends GetxController {
   //delete account warning
   void deleteAccountWarningPopup() {
     Get.defaultDialog(
-        contentPadding: EdgeInsets.all(DSize.md),
+        contentPadding: const EdgeInsets.all(DSize.md),
         title: 'Delete Account',
         middleText:
             'Are you sure want to delete your account permanently? This action is not reversible and all of your data will be removed permanently',
         confirm: ElevatedButton(
           onPressed: () async => deleteUserAccount(),
-          child: Padding(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red, side: const BorderSide(color: Colors.red)),
+          child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: DSize.lg),
             child: Text('Delete'),
           ),
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red, side: BorderSide(color: Colors.red)),
         ),
         cancel: OutlinedButton(
             onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-            child: Text('Cancel')));
-    ;
+            child: const Text('Cancel')));
   }
   void deleteUserAccount() async{
     try{

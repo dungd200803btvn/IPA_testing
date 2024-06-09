@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:t_store/bindings/general_bindings.dart';
-import 'package:t_store/features/authentication/screens/onboarding/onboard_screen.dart';
 import 'package:t_store/routes/app_routes.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/theme/theme.dart';

@@ -13,11 +13,11 @@ class TLoader {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(
         elevation: 0,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         backgroundColor: Colors.transparent,
         content: Container(
-          padding: EdgeInsets.all(12),
-          margin: EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.all(12),
+          margin: const EdgeInsets.symmetric(horizontal: 30),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: DHelperFunctions.isDarkMode(Get.context!)
@@ -43,9 +43,9 @@ class TLoader {
         colorText: DColor.white,
         backgroundColor: DColor.primary,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 10),
-        margin: EdgeInsets.all(10),
-        icon: Icon(
+        duration: const Duration(seconds: 10),
+        margin: const EdgeInsets.all(10),
+        icon: const Icon(
           Iconsax.check,
           color: DColor.white,
         ) //biểu tượng bên trái snack bar
@@ -61,9 +61,9 @@ class TLoader {
         colorText: DColor.white,
         backgroundColor: Colors.orange,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 10),
-        margin: EdgeInsets.all(20),
-        icon: Icon(
+        duration: const Duration(seconds: 10),
+        margin: const EdgeInsets.all(20),
+        icon: const Icon(
           Iconsax.warning_2,
           color: DColor.white,
         ) //biểu tượng bên trái snack bar
@@ -77,9 +77,9 @@ class TLoader {
         colorText: DColor.white,
         backgroundColor: Colors.red.shade600,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 10),
-        margin: EdgeInsets.all(20),
-        icon: Icon(
+        duration: const Duration(seconds: 10),
+        margin: const EdgeInsets.all(20),
+        icon: const Icon(
           Iconsax.warning_2,
           color: DColor.white,
         ));

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:t_store/features/personalization/controllers/address_controller.dart';
 import 'package:t_store/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helper/cloud_helper_functions.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../utils/constants/colors.dart';
@@ -12,6 +14,7 @@ class UserAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AddressController());
     return  Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: DColor.primary,
@@ -22,14 +25,26 @@ class UserAddressScreen extends StatelessWidget {
         showBackArrow: true,
         title: Text('Addresses',style: Theme.of(context).textTheme.headlineSmall,),
       ),
-      body: const SingleChildScrollView(
+      body:  SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(DSize.defaultspace),
-          child: Column(
-            children: [
-              TSingleAddress(selectedAddress: false),
-              TSingleAddress(selectedAddress: true),
-            ],
+          padding: const EdgeInsets.all(DSize.defaultspace),
+          child: Obx(
+              ()=> FutureBuilder(
+                key: Key(controller.refreshData.value.toString()),
+                future: controller.getAllUserAddresses(),
+                builder: (context,snapshot){
+              final response = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
+              if(response!=null) return response;
+              final addresses = snapshot.data!;
+              return ListView.builder(
+                shrinkWrap: true,
+                  itemCount: addresses.length,
+                  itemBuilder: (_,index)
+                  => TSingleAddress(
+                    address: addresses[index],
+                    onTap: () =>controller.selectAddress(addresses[index]),));
+            
+            }),
           ),
         ),
       ),

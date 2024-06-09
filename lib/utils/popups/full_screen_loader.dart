@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_store/common/widgets/loaders/animation_loader.dart';
@@ -18,7 +17,7 @@ class TFullScreenLoader{
               height: double.infinity,
               child: Column(
                 children: [
-                  SizedBox(height: 250,),
+                  const SizedBox(height: 250,),
 
                   Expanded(child: TAnimationLoaderWidget(text: text, animation: animation))
                 ],

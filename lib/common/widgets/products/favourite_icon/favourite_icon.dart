@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/features/shop/controllers/product/favourite_controller.dart';
 import 'package:t_store/utils/constants/colors.dart';

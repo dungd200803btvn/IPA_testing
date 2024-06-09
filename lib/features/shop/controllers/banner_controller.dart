@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:t_store/data/dummy_data.dart';
 import 'package:t_store/data/repositories/banners/banner_repository.dart';
 import 'package:t_store/features/shop/models/banner_model.dart';
 import '../../../utils/popups/loader.dart';

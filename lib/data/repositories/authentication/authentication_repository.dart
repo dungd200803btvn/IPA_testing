@@ -62,7 +62,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -81,7 +81,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -98,7 +98,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -116,7 +116,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -132,7 +132,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     }
@@ -147,7 +147,7 @@ class AuthenticationRepository extends GetxController {
     try {
      final GoogleSignInAccount? userAccount =  await GoogleSignIn().signIn();
      final GoogleSignInAuthentication? googleAuth = await userAccount?.authentication;
-     final credentials = GoogleAuthProvider.credential(accessToken: googleAuth!.accessToken,idToken: googleAuth!.idToken);
+     final credentials = GoogleAuthProvider.credential(accessToken: googleAuth!.accessToken,idToken: googleAuth.idToken);
      //once signed in, return the UserCredential
      return await _auth.signInWithCredential(credentials);
     } on FirebaseAuthException catch (e) {
@@ -155,7 +155,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -176,7 +176,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -192,7 +192,7 @@ class AuthenticationRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormatException();
+      throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {

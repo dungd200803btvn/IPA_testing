@@ -12,10 +12,10 @@ class ReAuthLoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = UserController.instance;
     return Scaffold(
-      appBar: AppBar(title: Text('Re-Authenticate User'),),
+      appBar: AppBar(title: const Text('Re-Authenticate User'),),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(DSize.defaultspace),
+          padding: const EdgeInsets.all(DSize.defaultspace),
           child: Form(
             key: controller.reAuthFormKey,
             child: Column(
@@ -25,9 +25,9 @@ class ReAuthLoginForm extends StatelessWidget {
                 TextFormField(
                   controller: controller.verifyEmail,
                   validator: (value)=>DValidator.validateEmail(value),
-                  decoration: InputDecoration(prefixIcon: Icon(Iconsax.direct_right),labelText: DText.email),
+                  decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_right),labelText: DText.email),
                 ),
-                SizedBox(height: DSize.spaceBtwInputFielRadius,),
+                const SizedBox(height: DSize.spaceBtwInputFielRadius,),
                 ///Password
                 Obx(() => TextFormField(
                   obscureText: controller.hidePassword.value,
@@ -35,18 +35,18 @@ class ReAuthLoginForm extends StatelessWidget {
                   validator: (value)=> DValidator.validatePassword(value),
                   decoration: InputDecoration(
                     labelText: DText.password,
-                    prefixIcon: Icon(Iconsax.password_check),
+                    prefixIcon: const Icon(Iconsax.password_check),
                     suffixIcon: IconButton(
                       onPressed: ()=> controller.hidePassword.value = !controller.hidePassword.value ,
                       icon: Icon( controller.hidePassword.value?Iconsax.eye_slash : Iconsax.eye),
                     )
                   ),
                 )),
-                SizedBox(height: DSize.spaceBtwSection,),
+                const SizedBox(height: DSize.spaceBtwSection,),
               //Button
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(onPressed: ()=>controller.reAuthenticateEmailAndPasswordUser(),child: Text('Verify'),),
+                  child: ElevatedButton(onPressed: ()=>controller.reAuthenticateEmailAndPasswordUser(),child: const Text('Verify'),),
                 )
               ],
             ),

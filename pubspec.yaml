@@ -47,6 +47,7 @@ dependencies:
   faker: ^2.1.0
   uuid: ^4.4.0
   firebase_app_check: ^0.2.2+7
+  dart_style: ^2.3.6
 
 
 
@@ -60,7 +61,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
 
 flutter:

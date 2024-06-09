@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/state_manager.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/images/t_circular_image.dart';
 import 'package:t_store/common/widgets/shimmer/shimmer.dart';
@@ -36,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                     Obx(() {
                       final networkImage = controller.user.value.profilePicture;
                       final image = networkImage.isNotEmpty? networkImage: TImages.user;
-                      return  controller.imageUploading.value? TShimmerEffect(width: 80, height:80,radius: 80,):
+                      return  controller.imageUploading.value? const TShimmerEffect(width: 80, height:80,radius: 80,):
                         TCircularImage(
                           image: image, width: 100, height: 100,isNetworkImage: networkImage.isNotEmpty,);
                     }),

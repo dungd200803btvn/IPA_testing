@@ -11,7 +11,7 @@ final int itemCount;
       height: 80,
       child: ListView.separated(
           itemBuilder: (_,__){
-            return Column(
+            return const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //Image
@@ -22,7 +22,7 @@ final int itemCount;
               ],
             );
           },
-          separatorBuilder: (_,__)=> SizedBox(width: DSize.spaceBtwItem,),
+          separatorBuilder: (_,__)=> const SizedBox(width: DSize.spaceBtwItem,),
           itemCount: itemCount,
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,),

@@ -30,7 +30,7 @@ class DHelperFunctions{
     }else if(value=="Orange"){
       return Colors.deepOrange;
     }else if(value=="Silver"){
-      return const Color(0xffc0c0c0);;
+      return const Color(0xffc0c0c0);
     }else{
       return null;
     }

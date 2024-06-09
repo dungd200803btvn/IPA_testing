@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -12,7 +11,6 @@ import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/enum/enum.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
-import '../../icons/t_circular_icon.dart';
 import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
 import '../../texts/t_branc_title_text_with_verified_icon.dart';
@@ -78,13 +76,13 @@ class TProductCardVertical extends StatelessWidget {
             const SizedBox(height: DSize.spaceBtwItem / 2),
             //Detail
              Padding(
-              padding: EdgeInsets.only(left: DSize.sm),
+              padding: const EdgeInsets.only(left: DSize.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TProductTitleText(
                       title: product.title, smallSize: true),
-                  SizedBox(height: DSize.spaceBtwItem / 2),
+                  const SizedBox(height: DSize.spaceBtwItem / 2),
                   TBrandTitleWithVerifiedIcon(title: product.brand!=null ? product.brand!.name:" " ),
                 ],
               ),
@@ -100,7 +98,7 @@ class TProductCardVertical extends StatelessWidget {
                     children: [
                       if(product.productType==ProductType.single.toString() && product.salePrice> 0)
                         Padding(
-                          padding: EdgeInsets.only(left: DSize.sm),
+                          padding: const EdgeInsets.only(left: DSize.sm),
                           child: Text(
                             product.price.toString(),
                             style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
@@ -108,7 +106,7 @@ class TProductCardVertical extends StatelessWidget {
                         ),
 
                       Padding(
-                        padding: EdgeInsets.only(left: DSize.sm),
+                        padding: const EdgeInsets.only(left: DSize.sm),
                         child: TProductPriceText(price: controller.getProductPrice(product)),
                       ),
                     ],

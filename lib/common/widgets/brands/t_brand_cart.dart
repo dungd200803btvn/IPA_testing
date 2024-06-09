@@ -3,7 +3,6 @@ import 'package:t_store/features/shop/models/brand_model.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/enums.dart';
-import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/containers/rounded_container.dart';
 import '../images/t_circular_image.dart';

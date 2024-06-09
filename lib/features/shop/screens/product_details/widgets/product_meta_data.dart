@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:t_store/common/widgets/images/t_circular_image.dart';
@@ -8,7 +7,6 @@ import 'package:t_store/common/widgets/texts/t_branc_title_text_with_verified_ic
 import 'package:t_store/features/shop/controllers/product_controller.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/enums.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/enum/enum.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
@@ -52,7 +50,7 @@ class TProductMetaData extends StatelessWidget {
         //Stock Status
         Row(
           children: [
-             TProductTitleText(title: 'Status'),
+             const TProductTitleText(title: 'Status'),
             const SizedBox(width: DSize.spaceBtwItem),
             Text(controller.getProductStockStatus(product.stock),style: Theme.of(context).textTheme.titleMedium),
           ],

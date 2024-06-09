@@ -55,8 +55,8 @@ class TBrandShowCase extends StatelessWidget {
         margin: const EdgeInsets.only(right: DSize.sm),
         padding: const EdgeInsets.all(DSize.md),
         child: CachedNetworkImage(fit: BoxFit.contain, imageUrl: image,
-        progressIndicatorBuilder: (context,url,downloadProgress)=> TShimmerEffect(width: 100, height: 100),
-        errorWidget: (context,url,error)=> Icon(Icons.error),),
+        progressIndicatorBuilder: (context,url,downloadProgress)=> const TShimmerEffect(width: 100, height: 100),
+        errorWidget: (context,url,error)=> const Icon(Icons.error),),
       ),
     );
   }

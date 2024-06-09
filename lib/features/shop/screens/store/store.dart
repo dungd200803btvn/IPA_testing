@@ -82,7 +82,7 @@ class StoreScreen extends StatelessWidget {
                   ),
                 ),
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(kToolbarHeight), // Adjust height as needed
+                  preferredSize: const Size.fromHeight(kToolbarHeight), // Adjust height as needed
                   child: Obx(
                         () => TabBar(
                       tabs: categories.map((category) => Tab(child: Text(category.name))).toList(),

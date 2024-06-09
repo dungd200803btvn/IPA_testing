@@ -58,7 +58,7 @@ class LoginController extends GetxController {
       TFullScreenLoader.stopLoading();
       UserController.instance.fetchUserRecord();
       //Redirect
-      Get.to(() => NavigationMenu());
+      Get.to(() => const NavigationMenu());
     } on FirebaseAuthException catch (e) {
       TFullScreenLoader.stopLoading();
       TLoader.errorSnackbar(
@@ -69,7 +69,7 @@ class LoginController extends GetxController {
           title: "Oh snap", message: TFirebaseException(e.code).message);
     } on FormatException catch (_) {
       TFullScreenLoader.stopLoading();
-      TLoader.errorSnackbar(title: "Oh snap", message: TFormatException());
+      TLoader.errorSnackbar(title: "Oh snap", message: const TFormatException());
     } on PlatformException catch (e) {
       TFullScreenLoader.stopLoading();
       TLoader.errorSnackbar(

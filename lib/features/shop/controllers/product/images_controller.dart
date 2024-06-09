@@ -45,14 +45,14 @@ class ImagesController extends GetxController {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(padding: EdgeInsets.symmetric(vertical: DSize.defaultspace*2,horizontal: DSize.defaultspace),
+                Padding(padding: const EdgeInsets.symmetric(vertical: DSize.defaultspace*2,horizontal: DSize.defaultspace),
                 child: CachedNetworkImage(imageUrl: image,),),
-                SizedBox(height: DSize.spaceBtwSection,),
+                const SizedBox(height: DSize.spaceBtwSection,),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
                     width: 150,
-                    child: OutlinedButton(onPressed: ()=> Get.back(),child: Text("Close"),),
+                    child: OutlinedButton(onPressed: ()=> Get.back(),child: const Text("Close"),),
                   ),
                 )
               ],

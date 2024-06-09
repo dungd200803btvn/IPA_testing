@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/brands/t_brand_cart.dart';
@@ -24,7 +23,7 @@ class BrandProducts extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(DSize.defaultspace),
+          padding: const EdgeInsets.all(DSize.defaultspace),
           child: Column(
             children: [
               //Brand Detail
@@ -32,7 +31,7 @@ class BrandProducts extends StatelessWidget {
                 showBorder: true,
                 brand: brand,
               ),
-              SizedBox(
+              const SizedBox(
                 height: DSize.spaceBtwSection,
               ),
               FutureBuilder(
