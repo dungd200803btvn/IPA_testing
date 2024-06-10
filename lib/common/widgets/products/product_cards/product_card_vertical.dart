@@ -15,6 +15,7 @@ import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
 import '../../texts/t_branc_title_text_with_verified_icon.dart';
 import '../favourite_icon/favourite_icon.dart';
+import 'add_to_cart_button.dart';
 
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({super.key, required this.product});
@@ -112,19 +113,7 @@ class TProductCardVertical extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                      color: DColor.dark,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(DSize.cardRadiusMd),
-                          bottomRight:
-                          Radius.circular(DSize.productImageRadius))),
-                  child: const SizedBox(
-                      width: DSize.iconLg * 1.2,
-                      height: DSize.iconLg * 1.2,
-                      child: Center(
-                          child: Icon(Iconsax.add, color: DColor.white))),
-                )
+                ProductCardAddtoCartButton(product: product,)
               ],
             ),
 
@@ -134,6 +123,8 @@ class TProductCardVertical extends StatelessWidget {
     );
   }
 }
+
+
 
 
 
