@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/controllers/product/checkout_controller.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -12,22 +14,25 @@ class TBillingPaymentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = DHelperFunctions.isDarkMode(context);
+    final controller = CheckoutController.instance;
     return Column(
       children: [
-        TSectionHeading(title: 'Payment Method',buttonTitle: 'Change',onPressed: (){},),
+        TSectionHeading(title: 'Payment Method',buttonTitle: 'Change',onPressed: ()=> controller.selectPaymentMethod(context),),
         const SizedBox(height: DSize.spaceBtwItem/2,),
-        Row(
-          children: [
-            TRoundedContainer(
-              width: 60,
-              height: 35,
-              backgroundColor: dark? DColor.light:DColor.white,
-              padding: const EdgeInsets.all(DSize.sm),
-              child: const Image(image: AssetImage(TImages.paypal),fit: BoxFit.contain,),
-            ),
-            const SizedBox(width: DSize.spaceBtwItem/2,),
-            Text('Paypal',style: Theme.of(context).textTheme.bodyLarge,)
-          ],
+        Obx(
+          ()=> Row(
+            children: [
+              TRoundedContainer(
+                width: 60,
+                height: 35,
+                backgroundColor: dark? DColor.light:DColor.white,
+                padding: const EdgeInsets.all(DSize.sm),
+                child:  Image(image: AssetImage(controller.selectedPaymentMethod.value.image),fit: BoxFit.contain,),
+              ),
+              const SizedBox(width: DSize.spaceBtwItem/2,),
+              Text(controller.selectedPaymentMethod.value.name,style: Theme.of(context).textTheme.bodyLarge,)
+            ],
+          ),
         )
       ],
     );

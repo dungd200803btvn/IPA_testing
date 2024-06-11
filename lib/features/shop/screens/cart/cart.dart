@@ -10,13 +10,15 @@ import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
 
+import '../../controllers/product/order_controller.dart';
+
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = CartController.instance;
-
+    final controller = Get.put(CartController());
+   final orderController=  Get.put(OrderController());
     return Scaffold(
       appBar: TAppBar(
         title: Text(
@@ -36,7 +38,7 @@ class CartScreen extends StatelessWidget {
           onActionPressed: (){
             final navController = Get.find<NavigationController>();
             // Sử dụng Get.to để điều hướng
-            Get.to(NavigationMenu());
+            Get.offAll(NavigationMenu());
           }
         );
         if (controller.cartItems.isEmpty) {
