@@ -69,7 +69,7 @@ class ProductAttributes extends StatelessWidget {
                               const TProductTitleText(
                                   title: 'Stock:', smallSize: true),
                               const SizedBox(width: DSize.spaceBtwItem / 2),
-                              Text(controller.variationStockStatus.value,
+                              Text(controller.selectedVariation.value.stock.toString(),
                                   style: Theme.of(context).textTheme.titleMedium),
                             ],
                           )
@@ -81,7 +81,7 @@ class ProductAttributes extends StatelessWidget {
                   //Variation Description
                    TProductTitleText(
                       title:
-                        controller.selectedVariation.value.description ?? " " ,
+                        controller.selectedVariation.value.description ?? " The product has good quality and reasonable price, it is worth trying once" ,
                       smallSize: true,
                       maxLines: 4),
                 ],

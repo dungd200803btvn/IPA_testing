@@ -45,12 +45,11 @@ class TCategoryTab extends StatelessWidget {
                     if(response!=null) return response;
                     //record found!
                     final products = snapshot.data!;
-                    print("so sp cua category la: ${products.length}");
 
                     return Column(
                       children: [
                         TSectionHeading(title: 'You might like', onPressed: ()
-                        =>  Get.to(AllProducts(title: category.name,futureMethod: controller.getCategoryProducts(categoryId: category.id,limit: 10),))),
+                        =>  Get.to(AllProducts(title: category.name,futureMethod: controller.getCategoryProducts(categoryId: category.id,),))),
                         const SizedBox(height: DSize.spaceBtwItem),
                         TGridLayout(
                             itemCount: products.length,

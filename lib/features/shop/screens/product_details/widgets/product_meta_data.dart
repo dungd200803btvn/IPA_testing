@@ -7,6 +7,7 @@ import 'package:t_store/common/widgets/texts/t_branc_title_text_with_verified_ic
 import 'package:t_store/features/shop/controllers/product_controller.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/enums.dart';
+import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/enum/enum.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
@@ -60,8 +61,8 @@ class TProductMetaData extends StatelessWidget {
         //Branch
         Row(
           children: [
-            TCircularImage(image: product.brand!= null? product.brand!.image :" ",
-                width: 32,height: 32,overlayColor: dark? DColor.white:DColor.black),
+            TCircularImage(image: product.brand!= null? product.brand!.image : TImages.zaraLogo,
+                width: 32,height: 32,overlayColor: dark? DColor.white:DColor.black,isNetworkImage: true,),
             TBrandTitleWithVerifiedIcon(title: product.brand!= null? product.brand!.name :" " ,
                 branchTextSize: TTextSize.medium),
           ],

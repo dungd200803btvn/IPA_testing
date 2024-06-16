@@ -12,6 +12,9 @@ class DHelperFunctions{
     }else if(value=="Pink"){
       return Colors.pink;
     }else if(value=="Grey"){
+      return Colors.blueGrey;
+    }
+    else if(value=="Gray"){
       return Colors.grey;
     }else if(value=="Purple"){
       return Colors.purple;

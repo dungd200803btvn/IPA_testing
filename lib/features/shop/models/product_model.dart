@@ -74,7 +74,7 @@ factory ProductModel.fromSnapshot(DocumentSnapshot<Map<String,dynamic>> document
       price: double.parse((data['Price']?? 0.0).toString()),
       salePrice: double.parse((data['SalePrice']?? 0.0).toString()),
       thumbnail: data['Thumbnail']?? '',
-      categoryId: data['CategoryId']?? '',
+      categoryId: data['CategoryId']?.toString() ?? '',
       description: data['Description']?? '',
       productType:  data['ProductType']?? '',
       brand: data['Brand'] != null ? BrandModel.fromJson(data['Brand']) : null,

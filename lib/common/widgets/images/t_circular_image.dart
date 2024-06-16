@@ -42,6 +42,7 @@ class TCircularImage extends StatelessWidget {
           imageUrl: image,
           fit: fit,
           color: overlayColor,
+          alignment: Alignment.center,
           progressIndicatorBuilder: (context, url, downloadProgress) =>
        TShimmerEffect(width: width, height: width ,radius: width,),
           errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -50,6 +51,7 @@ class TCircularImage extends StatelessWidget {
           fit: fit,
           image: AssetImage(image),
           color: overlayColor,
+          alignment: Alignment.center,
         ),
       ),
     );

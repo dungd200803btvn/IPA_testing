@@ -586,92 +586,210 @@ class TDummyData {
 
   ///Categories
   static final List<CategoryModel> categories = [
+    // CategoryModel(
+    //     id: '1', name: 'Sports', image: TImages.sportIcon, isFeatured: true),
+    // CategoryModel(
+    //     id: '5',
+    //     name: 'Furniture',
+    //     image: TImages.furnitureIcon,
+    //     isFeatured: true),
+    // CategoryModel(
+    //     id: '2',
+    //     name: 'Electronics',
+    //     image: TImages.electronicsIcon,
+    //     isFeatured: true),
+    // CategoryModel(
+    //     id: '3', name: 'Clothes', image: TImages.clothIcon, isFeatured: true),
+    // CategoryModel(
+    //     id: '4', name: 'Animals', image: TImages.animalIcon, isFeatured: true),
+    // CategoryModel(
+    //     id: '6', name: 'Shoes', image: TImages.shoeIcon, isFeatured: true),
+    // CategoryModel(
+    //     id: '7',
+    //     name: 'Cosmetics',
+    //     image: TImages.cosmeticsIcon,
+    //     isFeatured: true),
+    // CategoryModel(
+    //     id: '14',
+    //     name: 'Jewelery',
+    //     image: TImages.jeweleryIcon,
+    //     isFeatured: true),
+    //
+    // //sub categories
+    // CategoryModel(
+    //     id: '8',
+    //     name: 'Sports Shoes',
+    //     image: TImages.sportIcon,
+    //     isFeatured: false,
+    //     parentId: '1'),
+    // CategoryModel(
+    //     id: '9',
+    //     name: 'Track  suits',
+    //     image: TImages.sportIcon,
+    //     isFeatured: false,
+    //     parentId: '1'),
+    // CategoryModel(
+    //     id: '10',
+    //     name: 'Sports Equipments',
+    //     image: TImages.sportIcon,
+    //     isFeatured: false,
+    //     parentId: '1'),
+    // //furnitures
+    // CategoryModel(
+    //     id: '11',
+    //     name: 'Bedroom furniture',
+    //     image: TImages.furnitureIcon,
+    //     isFeatured: false,
+    //     parentId: '5'),
+    // CategoryModel(
+    //     id: '12',
+    //     name: 'Kitchen furniture',
+    //     image: TImages.furnitureIcon,
+    //     isFeatured: false,
+    //     parentId: '5'),
+    // CategoryModel(
+    //     id: '13',
+    //     name: 'Office furniture ',
+    //     image: TImages.furnitureIcon,
+    //     isFeatured: false,
+    //     parentId: '5'),
+    // //electronics
+    // CategoryModel(
+    //     id: '14',
+    //     name: 'Laptop',
+    //     image: TImages.electronicsIcon,
+    //     isFeatured: false,
+    //     parentId: '2'),
+    // CategoryModel(
+    //     id: '15',
+    //     name: 'Mobile',
+    //     image: TImages.electronicsIcon,
+    //     isFeatured: false,
+    //     parentId: '2'),
+    // CategoryModel(
+    //     id: '16',
+    //     name: 'Shirts',
+    //     image: TImages.clothIcon,
+    //     isFeatured: false,
+    //     parentId: '3'),
+    // CategoryModel(
+    //     id: '17',
+    //     name: 'Jacket',
+    //     image: TImages.clothIcon,
+    //     isFeatured: false,
+    //     parentId: '3'),
+    // CategoryModel(
+    //     id: '18',
+    //     name: 'Trousers',
+    //     image: TImages.clothIcon,
+    //     isFeatured: false,
+    //     parentId: '3'),
+    // CategoryModel(
+    //     id: '19',
+    //     name: 'Dress',
+    //     image: TImages.clothIcon,
+    //     isFeatured: false,
+    //     parentId: '3'),
+    // CategoryModel(
+    //     id: '20',
+    //     name: 'Vest',
+    //     image: TImages.clothIcon,
+    //     isFeatured: false,
+    //     parentId: '3'),
+    // CategoryModel(
+    //     id: '21',
+    //     name: 'Scarf',
+    //     image: TImages.clothIcon,
+    //     isFeatured: true,
+    //     ),
+    // CategoryModel(
+    //   id: '22',
+    //   name: 'Hat',
+    //   image: TImages.clothIcon,
+    //   isFeatured: true,
+    // ),
+    // CategoryModel(
+    //   id: '23',
+    //   name: 'Flip-flops',
+    //   image: TImages.shoeIcon,
+    //   isFeatured: false,
+    //   parentId: '6'
+    // ),
+    // CategoryModel(
+    //   id: '24',
+    //   name: 'Wallet',
+    //   image: TImages.jeweleryIcon,
+    //   isFeatured: false,
+    //   parentId: '4'
+    // ),
+    // CategoryModel(
+    //     id: '25',
+    //     name: 'High heels',
+    //     image: TImages.shoeIcon,
+    //     isFeatured: false,
+    //     parentId: '6'
+    // ),
+    // CategoryModel(
+    //     id: '26',
+    //     name: 'Sandals',
+    //     image: TImages.shoeIcon,
+    //     isFeatured: false,
+    //     parentId: '6'
+    // ),
+    // CategoryModel(
+    //     id: '27',
+    //     name: 'Socks',
+    //     image: TImages.shoeIcon,
+    //     isFeatured: false,
+    //     parentId: '3'
+    // ),
+    // CategoryModel(
+    //     id: '28',
+    //     name: 'Sweater',
+    //     image: TImages.shoeIcon,
+    //     isFeatured: false,
+    //     parentId: '3'
+    // ),
+    // CategoryModel(
+    //     id: '29',
+    //     name: 'Suit',
+    //     image: TImages.shoeIcon,
+    //     isFeatured: false,
+    //     parentId: '3'
+    // ),
+    // CategoryModel(
+    //     id: '30',
+    //     name: 'Hand Bag',
+    //     image: TImages.jeweleryIcon,
+    //     isFeatured: false,
+    //     parentId: '4'
+    // ),
     CategoryModel(
-        id: '1', name: 'Sports', image: TImages.sportIcon, isFeatured: true),
-    CategoryModel(
-        id: '5',
-        name: 'Furniture',
-        image: TImages.furnitureIcon,
-        isFeatured: true),
-    CategoryModel(
-        id: '2',
-        name: 'Electronics',
-        image: TImages.electronicsIcon,
-        isFeatured: true),
-    CategoryModel(
-        id: '3', name: 'Clothes', image: TImages.clothIcon, isFeatured: true),
-    CategoryModel(
-        id: '4', name: 'Animals', image: TImages.animalIcon, isFeatured: true),
-    CategoryModel(
-        id: '6', name: 'Shoes', image: TImages.shoeIcon, isFeatured: true),
-    CategoryModel(
-        id: '7',
-        name: 'Cosmetics',
-        image: TImages.cosmeticsIcon,
-        isFeatured: true),
-    CategoryModel(
-        id: '14',
-        name: 'Jewelery',
+        id: '31',
+        name: 'Belt',
         image: TImages.jeweleryIcon,
-        isFeatured: true),
+        isFeatured: false,
+        parentId: '3'
+    ),
+    CategoryModel(
+        id: '32',
+        name: 'Fashion shoes',
+        image: TImages.shoeIcon,
+        isFeatured: false,
+        parentId: '6'
+    ),
+    CategoryModel(
+          id: '33',
+          name: 'Jewelery',
+          image: TImages.jeweleryIcon,
+          isFeatured: false,
+          parentId: '3'
+    ),
 
-    //sub categories
-    CategoryModel(
-        id: '8',
-        name: 'Sports Shoes',
-        image: TImages.sportIcon,
-        isFeatured: false,
-        parentId: '1'),
-    CategoryModel(
-        id: '9',
-        name: 'Track  suits',
-        image: TImages.sportIcon,
-        isFeatured: false,
-        parentId: '1'),
-    CategoryModel(
-        id: '10',
-        name: 'Sports Equipments',
-        image: TImages.sportIcon,
-        isFeatured: false,
-        parentId: '1'),
-    //furnitures
-    CategoryModel(
-        id: '11',
-        name: 'Bedroom furniture',
-        image: TImages.furnitureIcon,
-        isFeatured: false,
-        parentId: '5'),
-    CategoryModel(
-        id: '12',
-        name: 'Kitchen furniture',
-        image: TImages.furnitureIcon,
-        isFeatured: false,
-        parentId: '5'),
-    CategoryModel(
-        id: '13',
-        name: 'Office furniture ',
-        image: TImages.furnitureIcon,
-        isFeatured: false,
-        parentId: '5'),
-    //electronics
-    CategoryModel(
-        id: '14',
-        name: 'Laptop',
-        image: TImages.electronicsIcon,
-        isFeatured: false,
-        parentId: '2'),
-    CategoryModel(
-        id: '15',
-        name: 'Mobile',
-        image: TImages.electronicsIcon,
-        isFeatured: false,
-        parentId: '2'),
-    CategoryModel(
-        id: '16',
-        name: 'Shirts',
-        image: TImages.clothIcon,
-        isFeatured: false,
-        parentId: '3'),
+
+
+
+
   ];
 
   static final List<BrandModel> brands = [

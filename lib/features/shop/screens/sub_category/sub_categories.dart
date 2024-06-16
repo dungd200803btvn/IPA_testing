@@ -44,21 +44,22 @@ class SubCategoriesScreen extends StatelessWidget {
 
               //Sub categories
               FutureBuilder(
+
                 future: controller.getSubCategories(category.id),
                 builder: (context, snapshot) {
-                  //handle loader no record error message
+                 // handle loader no record error message
                   const loader = THorizontalProductShimmer();
                   final widget = TCloudHelperFunctions.checkMultiRecordState(
                       snapshot: snapshot, loader: loader);
                   if (widget != null) return widget;
                   final subCategories = snapshot.data!;
+
                   return ListView.builder(
                       shrinkWrap: true,
                       itemCount: subCategories.length,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (_, index) {
                         final subCategory = subCategories[index];
-
                         return FutureBuilder(
                           future: controller.getCategoryProducts(
                               categoryId: subCategory.id),
@@ -70,6 +71,7 @@ class SubCategoriesScreen extends StatelessWidget {
                             if (widget != null) return widget;
                             final products = snapshot.data!;
 
+
                             return Column(
                               children: [
                                 TSectionHeading(
@@ -79,7 +81,7 @@ class SubCategoriesScreen extends StatelessWidget {
                                         futureMethod:
                                             controller.getCategoryProducts(
                                                 categoryId: subCategory.id,
-                                                limit: -1),
+                                                ),
                                       )),
                                 ),
                                 const SizedBox(

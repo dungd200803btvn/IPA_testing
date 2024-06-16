@@ -22,7 +22,7 @@ class TCartCounterIcon extends StatelessWidget {
           onPressed: ()=> Get.to(()=> const CartScreen()),
             icon: Icon(
               Iconsax.shopping_bag,
-              color: iconColor,
+              color: iconColor?? (dark? DColor.white: DColor.black),
             )),
         Positioned(
           right: 0,
@@ -30,7 +30,7 @@ class TCartCounterIcon extends StatelessWidget {
             width: 18,
             height: 18,
             decoration: BoxDecoration(
-              color: counterBgColor?? (dark? DColor.white: DColor.black),
+              color: counterBgColor?? (dark? DColor.black: DColor.white),
               borderRadius: BorderRadius.circular(100),
             ),
             child: Center(
@@ -40,7 +40,7 @@ class TCartCounterIcon extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
-                      .apply(color: counterTextColor?? (dark? DColor.black: DColor.white), fontSizeFactor: 0.8),
+                      .apply(color: counterTextColor?? (dark? DColor.white: DColor.black), fontSizeFactor: 0.8),
                 ),
               ),
             ),
