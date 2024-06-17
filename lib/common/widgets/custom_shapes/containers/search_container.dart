@@ -1,47 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:t_store/features/shop/controllers/home_controller.dart';
+import 'package:t_store/features/shop/screens/all_products/all_product_run_local.dart';
+import 'package:t_store/features/shop/screens/all_products/all_products.dart';
+import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/helper/helper_function.dart';
+import 'package:t_store/utils/validators/validation.dart';
 
-import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/device/device_utility.dart';
-import '../../../../utils/helper/helper_function.dart';
 class TSearchContainer extends StatelessWidget {
   const TSearchContainer({
     super.key,
     required this.text,
-    this.icon= Iconsax.search_normal,
-    this.showBackground=true,
-    this.showBorder=true,
+    this.icon = Iconsax.search_normal,
+    this.showBackground = true,
+    this.showBorder = true,
     this.onTap,
-    this.padding = const EdgeInsets.symmetric(horizontal: DSize.defaultspace),
+    this.padding = const EdgeInsets.symmetric(horizontal: 16.0),
   });
+
   final String text;
   final IconData? icon;
-  final bool showBackground,showBorder;
+  final bool showBackground, showBorder;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry padding;
+
   @override
   Widget build(BuildContext context) {
     final dark = DHelperFunctions.isDarkMode(context);
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: padding,
-        child: Container(
-          width: TDeviceUtils.getScreenWidth(context),
-          padding: const EdgeInsets.all(DSize.md),
-          decoration: BoxDecoration(
-            color: showBackground? dark? DColor.dark:   DColor.light: Colors.transparent,
-            borderRadius: BorderRadius.circular(DSize.cardRadiusLg),
-            border: showBorder?    Border.all(color: dark? DColor.dark:   DColor.grey):null,
+    final controller = Get.put(HomeController());
+
+    return Padding(
+      padding: padding,
+      child: TextFormField(
+        controller: controller.query,
+        validator: (value) => DValidator.validateEmptyText("search", value),
+        decoration: InputDecoration(
+          filled: showBackground,
+          fillColor: showBackground ? (dark ? DColor.dark : DColor.light) : Colors.transparent,
+          border: showBorder ? OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(color: dark ? DColor.dark : DColor.grey),
+          ) : InputBorder.none,
+          hintText: 'Search...',
+          hintStyle: TextStyle(color: DColor.grey),
+          suffixIcon: IconButton(
+            icon: Icon(Iconsax.search_normal),
+            color: DColor.grey,
+            onPressed: () {
+              // Thực hiện hành động khi bấm vào icon search
+              Get.to(() => const AllProductsByLocal(
+                title: 'Search Result',
+               // products: controller.getProductsBySearchQuery(controller.query.text.trim().toString()),
+              ));
+            },
           ),
-          child: Row(
-            children: [
-              Icon(icon,color: DColor.grey,),
-              const SizedBox(width: DSize.spaceBtwItem,),
-              Text(text,style: Theme.of(context).textTheme.bodySmall,)
-            ],
-          ),
+          contentPadding: const EdgeInsets.all(12.0),
         ),
       ),
     );

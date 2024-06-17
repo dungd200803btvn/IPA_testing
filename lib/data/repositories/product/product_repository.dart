@@ -39,6 +39,31 @@ class ProductRepository extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> getProductsBySearchQuery(String query) async {
+    try {
+      // Lấy tất cả các sản phẩm từ Firestore
+      final snapshot = await _db.collection("Products").get();
+
+      // Chuyển query về chữ thường
+      String lowerCaseQuery = query.toLowerCase();
+
+      // Lọc các sản phẩm mà Title chứa query
+      List<ProductModel> filteredProducts = snapshot.docs
+          .map((e) => ProductModel.fromSnapshot(e))
+          .where((product) => product.title.toLowerCase().contains(lowerCaseQuery))
+          .toList();
+
+      return filteredProducts;
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw "message: $e";
+    }
+  }
+
+
   //upload to cloud
   Future<void> uploadDummyData(List<ProductModel> products) async {
     final storage = Get.put(TFirebaseStorageService());

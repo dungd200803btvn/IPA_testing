@@ -9,26 +9,19 @@ import 'package:t_store/utils/helper/cloud_helper_functions.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
 
 import '../../../../common/widgets/products/sortable/sortable_product.dart';
+import '../../controllers/home_controller.dart';
 import '../../models/product_model.dart';
 
-class AllProducts extends StatelessWidget {
-  const AllProducts({
+class AllProductsByLocal extends StatelessWidget {
+  const AllProductsByLocal({
     super.key,
     required this.title,
-    this.query,
-    this.futureMethod,
-    this.products,
   });
-
   final String title;
-  final Query? query;
-  final Future<List<ProductModel>>? futureMethod;
-  final List<ProductModel>? products;
-
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AllProductsController());
     final dark = DHelperFunctions.isDarkMode(context);
+    final HomeController controller = Get.find();
     return Scaffold(
       appBar: TAppBar(
         title: Text(
@@ -38,19 +31,13 @@ class AllProducts extends StatelessWidget {
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(DSize.defaultspace),
-          child: FutureBuilder(future:futureMethod ?? controller.fetchProductsByQuery(query) ,
-          builder: ( context,  snapshot) {
-            const loader = TVerticalProductShimmer();
-            final widget =TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot ,loader: loader);
-            if(widget!=null) return widget;
-            final products = snapshot.data!;
-            return TSortableProducts(products: products,);
-          },
-           ),
+        child: Obx(
+            ()=> Padding(
+            padding: const EdgeInsets.all(DSize.defaultspace),
+            child: TSortableProducts(products:controller.filteredProducts.value ,),
+            ),
         ),
-      ),
+        ),
     );
   }
 }
