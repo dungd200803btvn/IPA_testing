@@ -34,14 +34,16 @@ class CategoryBrands extends StatelessWidget {
               snapshot: snapshot, loader: loader);
           if (widget != null) return widget;
           final brands = snapshot.data!;
+
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: brands.length,
             itemBuilder: (_, index) {
               final brand = brands[index];
+             if(brand!=null )
               return FutureBuilder(
-                  future: controller.getBrandProducts(brandId: brand.id,limit: 3),
+                  future: controller.getBrandProducts(brandId: brand.id,limit: 100),
                   builder: (context, snapshot) {
                    // handle loader, no record, or error message
                     final widget = TCloudHelperFunctions.checkMultiRecordState(
@@ -51,7 +53,7 @@ class CategoryBrands extends StatelessWidget {
                     final products = snapshot.data!;
                     return TBrandShowCase(
                       brand: brand,
-                      images: products.map((product) => product.thumbnail).toList(),
+                      images: products.take(4).map((product) => product.thumbnail).toList(),
                     );
                   });
             },

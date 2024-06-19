@@ -31,7 +31,7 @@ class TBrandShowCase extends StatelessWidget {
         child: Column(
           children: [
             //Brand with product count
-             TBrandCard(showBorder: false, brand: brand,),
+             TBrandCard(showBorder: true, brand: brand,),
             const SizedBox(height: DSize.spaceBtwItem),
             //Brand top 3 product image
             Row(

@@ -116,11 +116,40 @@ class ProductRepository extends GetxController {
       String docId = doc.id;
 
       // Kiểm tra xem ID của document có nằm trong phạm vi từ startId đến endId hay không
-      if (docId.compareTo(startId) < 0 || docId.compareTo(endId) > 0) {
+      if (docId.compareTo(startId) >= 0 || docId.compareTo(endId) <= 0) {
         // Nếu không nằm trong phạm vi, xóa document này
         await collectionRef.doc(docId).delete().catchError((error) {
           print("Failed to delete document: $error");
         });
+      }
+    }
+  }
+
+  Future<void> updateDocumentsInRange(String collectionName, String startId, String endId) async {
+    final firestore = FirebaseFirestore.instance;
+    final collectionRef = firestore.collection(collectionName);
+
+    // Truy vấn tất cả các document trong collection
+    QuerySnapshot snapshot = await collectionRef.get();
+
+    // Lặp qua từng document và kiểm tra xem ID của nó có nằm trong phạm vi cần cập nhật hay không
+    for (DocumentSnapshot doc in snapshot.docs) {
+      String docId = doc.id;
+
+      // Kiểm tra xem ID của document có nằm trong phạm vi từ startId đến endId hay không
+      if (docId.compareTo(startId) >= 0 && docId.compareTo(endId) <= 0) {
+        var productData = doc.data() as Map<String, dynamic>;
+        var brand = productData['Brand'] as Map<String, dynamic>;
+        var images = productData['Images'];
+
+        // Kiểm tra nếu product có trường Images và Images không phải là danh sách rỗng
+        if (images != null && images is List && images.isNotEmpty) {
+          // Cập nhật trường Brand.Image
+          await doc.reference.update({
+            'Brand.Image': images[0],
+          });
+          print('Updated Product ${docId} with new Brand Image');
+        }
       }
     }
   }
@@ -240,7 +269,7 @@ class ProductRepository extends GetxController {
   }
 
   Future<List<ProductModel>> getProductsForCategory(
-      {required String categoryId, int limit = 4}) async {
+      {required String categoryId, int limit = 400}) async {
     try {
       QuerySnapshot productCategoryQuery = limit == -1
           ? await _db
@@ -273,23 +302,13 @@ class ProductRepository extends GetxController {
   }
   Future<List<ProductModel>> getProductsForCategory1({required String categoryId}) async {
     // Lấy tất cả các sản phẩm từ Firestore
-    final snapshot = await _db.collection('Products').get();
-
+    final snapshot = await _db.collection('Products').where('CategoryId', isEqualTo: categoryId).get();
     // Lọc cục bộ các sản phẩm theo CategoryId đã chuyển thành chuỗi
     final products = snapshot.docs.map((doc) {
-      final data = doc.data()!;
-      final productCategoryId = data['CategoryId'].toString(); // Chuyển CategoryId sang chuỗi
-      if (productCategoryId == categoryId) {
         return ProductModel.fromSnapshot(doc);
-      } else {
-        return null;
-      }
     }).where((product) => product != null).toList().cast<ProductModel>();
-
     return products;
   }
-
-
   Future<void> uploadProductCategoryData(List<ProductCategoryModel> productcategory) async {
     for (var v in productcategory) {
       await _db
@@ -297,7 +316,6 @@ class ProductRepository extends GetxController {
           .add(v.toJson());
     }
   }
-
   Future<void> updateProducts() async {
     // Create a query to find products with 'bag' in the title
     QuerySnapshot querySnapshot = await _db

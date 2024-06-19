@@ -40,15 +40,13 @@ class TCircularImage extends StatelessWidget {
         child: isNetworkImage
             ? CachedNetworkImage(
           imageUrl: image,
-          fit: fit,
-          color: overlayColor,
+          fit: BoxFit.cover,
           alignment: Alignment.center,
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-       TShimmerEffect(width: width, height: width ,radius: width,),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          color: overlayColor,
+
         )
             : Image(
-          fit: fit,
+          fit: BoxFit.cover,
           image: AssetImage(image),
           color: overlayColor,
           alignment: Alignment.center,

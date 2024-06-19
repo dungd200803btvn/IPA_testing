@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:t_store/common/widgets/shimmer/vertical_product_shimmer.dart';
@@ -12,6 +13,7 @@ import 'package:t_store/utils/helper/cloud_helper_functions.dart';
 import '../../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../../common/widgets/products/product_cards/product_card_vertical.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../controllers/brand_controller.dart';
 
 class TCategoryTab extends StatelessWidget {
   const TCategoryTab({
@@ -24,6 +26,7 @@ class TCategoryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CategoryController.instance;
+
     return ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -33,6 +36,7 @@ class TCategoryTab extends StatelessWidget {
             child: Column(
               children: [
                 // Brands
+
                 CategoryBrands(category: category),
                 const SizedBox(height: DSize.spaceBtwItem),
 

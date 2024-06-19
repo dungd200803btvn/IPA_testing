@@ -12,6 +12,8 @@ import 'package:t_store/features/shop/screens/product_reviews/product_review.dar
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/enum/enum.dart';
 
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../models/product_model.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -22,6 +24,12 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: TAppBar(
+        title: Text(product.title, style: Theme.of(context).textTheme.headlineMedium),
+        actions: const [
+          TCartCounterIcon(),
+        ],
+      ),
       bottomNavigationBar:  TBottomAddToCart(product: product,),
       body: SingleChildScrollView(
         child: Column(

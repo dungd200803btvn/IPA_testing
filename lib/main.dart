@@ -1,10 +1,12 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:t_store/data/dummy_data.dart';
+import 'package:t_store/data/repositories/brands/brand_repository.dart';
 import 'package:t_store/data/repositories/categories/category_repository.dart';
 import 'package:t_store/data/repositories/product/product_repository.dart';
 import 'package:t_store/features/shop/controllers/product_controller.dart';
@@ -30,17 +32,21 @@ final controller = Get.put(ProductController());
 final productRepository = Get.put(ProductRepository());
 
 //   // Đọc dữ liệu từ file JSON và tạo danh sách các đối tượng ProductModel
-  //List<ProductModel> products = await controller.readProductsFromJson(filePath);
+//   List<ProductModel> products = await controller.readProductsFromJson(filePath);
 
 
- // productRepository.deleteDocumentsExceptRange('Products', '001', '013');
+ // productRepository.deleteDocumentsExceptRange('Brands', '001', '014');
  //productRepository.uploadDummyData1(products);
 
   //  final repository = Get.put(CategoryRepository());
   //  repository.uploadDummyData(TDummyData.categories);
    //productRepository.updateProducts();
 
-
+final brandRepository =  Get.put(BrandRepository());
+ //brandRepository.fetchBrands();
+ // brandRepository.updateProductBrands();
+ //  brandRepository.genDataBrandCategory();
+  //await deleteAllDocumentsInCollection('BrandCategory');
   runApp(const MyApp());
 
 

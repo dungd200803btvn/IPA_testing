@@ -30,13 +30,13 @@ class TBrandCard extends StatelessWidget {
         child: Row(
           children: [
             //Icon
-            Flexible(
-              child: TCircularImage(
-                  image: brand.image,
-                  isNetworkImage: true,
-                  backgroundColor: Colors.transparent,
-                  overlayColor: dark ? DColor.white : DColor.black),
-            ),
+            // Flexible(
+            //   child: TCircularImage(
+            //       image: brand.image,
+            //       isNetworkImage: true,
+            //       backgroundColor: Colors.transparent,
+            //       overlayColor: dark ? DColor.white : DColor.black),
+            // ),
             const SizedBox(width: DSize.spaceBtwItem / 2),
             //Text
             Expanded(

@@ -24,7 +24,7 @@ class BrandController extends GetxController{
       isLoading.value = true;
       final brands = await brandRepository.getAllBrands();
       allBrands.assignAll(brands);
-      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured?? false).take(4));
+      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured== false).take(6));
     }catch(e){
       TLoader.errorSnackbar(title: 'Oh Snap!',message: e.toString());
     }finally{
@@ -46,13 +46,14 @@ Future<List<ProductModel>> getBrandProducts({required String brandId,int limit=-
 
 //get brands for category
 Future<List<BrandModel>> getBrandsForCategory(String categoryId) async{
-    // try{
+    try{
       final brands = await brandRepository.getBrandsForCategory(categoryId);
       return brands;
-    // }catch(e){
-    //   TLoader.errorSnackbar(title: 'Oh Snap!',message: e.toString());
-    //   return [];
-    // }
+    }catch(e){
+      TLoader.errorSnackbar(title: 'Oh Snap!',message: e.toString());
+      print(e.toString());
+      return [];
+    }
 }
 
 

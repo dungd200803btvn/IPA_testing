@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import '../../../data/repositories/product/product_repository.dart';
 import '../../../utils/popups/loader.dart';
 import '../models/product_model.dart';

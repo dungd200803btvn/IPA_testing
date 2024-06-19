@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BrandModel {
@@ -69,5 +71,21 @@ class BrandModel {
     }else{
       return BrandModel.empty();
     }
+  }
+  int generateRandomId() {
+    final random = Random();
+    return 1; // Từ 100 đến 1000
+  }
+
+
+  factory BrandModel.fromFirestore(DocumentSnapshot doc) {
+    var brand = doc['Brand'];
+    return BrandModel(
+      id: (15 + Random().nextInt(100)).toString(),
+      name: brand['Name'].toString(),
+      image: brand['Image'].toString(),
+      isFeatured: false, // Set isFeatured to false
+      productsCount: brand['ProductsCount'] ?? 10, // You can adjust this as needed
+    );
   }
 }

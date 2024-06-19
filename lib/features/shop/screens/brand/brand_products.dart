@@ -7,6 +7,7 @@ import 'package:t_store/features/shop/controllers/brand_controller.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helper/cloud_helper_functions.dart';
 
+import '../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../models/brand_model.dart';
 
 class BrandProducts extends StatelessWidget {
@@ -21,6 +22,9 @@ class BrandProducts extends StatelessWidget {
       appBar: TAppBar(
         title: Text(brand.name),
         showBackArrow: true,
+        actions: const [
+          TCartCounterIcon(),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
