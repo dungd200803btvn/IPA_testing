@@ -62,8 +62,8 @@ class VariationController extends GetxController {
         .toSet();
   }
 
-  String getVariationPrice(){
-    return (selectedVariation.value.salePrice>0 ? selectedVariation.value.salePrice:selectedVariation.value.price ).toString();
+  String getVariationPrice([double? salePercentage]){
+    return (salePercentage!=null ? selectedVariation.value.price*(1-salePercentage):selectedVariation.value.price ).toStringAsFixed(1);
   }
   //check status
   void getProductVariationStockStatus() {

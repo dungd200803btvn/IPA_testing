@@ -27,6 +27,24 @@ class AddressController extends GetxController {
   final Rx<AddressModel> selectedAddress = AddressModel.empty().obs;
   RxBool refreshData = true.obs;
 
+  @override
+  void onInit() {
+    fetchAndSetSelectedAddress();
+    super.onInit();
+  }
+
+  void fetchAndSetSelectedAddress() async {
+    try {
+      final address = await addressRepository.fetchSelectedAddress();
+      selectedAddress.value = address;
+      refreshData.value = !refreshData.value; // Trigger UI update
+    } catch (e) {
+      TLoader.errorSnackbar(
+        title: 'Error',
+        message: e.toString(),
+      );
+    }
+  }
   //fetch all user specific addresses
   Future<List<AddressModel>> getAllUserAddresses() async {
     try {

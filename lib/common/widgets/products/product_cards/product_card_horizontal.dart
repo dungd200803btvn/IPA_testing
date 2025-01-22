@@ -15,12 +15,12 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helper/helper_function.dart';
 import '../../../styles/shadows.dart';
 class TProductCardHorizontal extends StatelessWidget {
-  const TProductCardHorizontal({super.key, required this.product});
+  const TProductCardHorizontal({super.key, required this.product,this.salePercentage,});
 final ProductModel product;
+  final  double? salePercentage;
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = DHelperFunctions.isDarkMode(context);
     return Container(
       width: 310,
@@ -43,6 +43,7 @@ final ProductModel product;
                 width: 120,
                     child: TRoundedImage(imageUrl: product.thumbnail,applyImageRadius: true,isNetWorkImage: true,),),
                 //Sale Tag
+                if(salePercentage!=null)
                 Positioned(
                   top: 12,
                   child: TRoundedContainer(
@@ -50,7 +51,7 @@ final ProductModel product;
                     backgroundColor: DColor.secondary.withOpacity(0.8),
                     padding: const EdgeInsets.symmetric(
                         horizontal: DSize.sm, vertical: DSize.xs),
-                    child: Text('$salePercentage%',
+                    child: Text('${controller.calculateSalePercentage(salePercentage)}%',
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!
@@ -87,12 +88,13 @@ final ProductModel product;
                     const Spacer(),
             
                     Row(
+
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //Pricing
                          Flexible(child: Column(
                            children: [
-                             if(product.productType == ProductType.single.toString() && product.salePrice>0)
+                             if(product.productType == ProductType.single.toString() && salePercentage!=null)
                                Padding(padding: const EdgeInsets.only(left: DSize.sm),
                                child: Text(
                                  product.price.toString(),

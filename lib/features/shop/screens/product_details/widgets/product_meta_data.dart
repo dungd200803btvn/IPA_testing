@@ -15,13 +15,13 @@ import 'package:t_store/utils/helper/helper_function.dart';
 import '../../../models/product_model.dart';
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({super.key,
-    required this.product});
+    required this.product,this.salePercentage});
   final ProductModel product;
+  final double? salePercentage;
   @override
   Widget build(BuildContext context) {
     final dark = DHelperFunctions.isDarkMode(context);
     final controller = ProductController.instance;
-    final salePercentage =  controller.calculateSalePercentage(product.price, product.salePrice);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,19 +29,20 @@ class TProductMetaData extends StatelessWidget {
         Row(
           children: [
             //Sale Tag
+            if(salePercentage!=null)
             TRoundedContainer(
               radius: DSize.sm,
               backgroundColor: DColor.secondary.withOpacity(0.8),
               padding: const EdgeInsets.symmetric(horizontal: DSize.sm,vertical: DSize.xs),
-              child: Text('$salePercentage%',style: Theme.of(context).textTheme.labelLarge!.apply(color: DColor.black),),
+              child: Text('${controller.calculateSalePercentage(salePercentage)}%',style: Theme.of(context).textTheme.labelLarge!.apply(color: DColor.black),),
             ),
             const SizedBox(width: DSize.spaceBtwItem),
 
             //Price
-            if(product.productType==ProductType.single.toString() && product.salePrice>0)
+            if(product.productType==ProductType.single.toString() && salePercentage!=null)
             Text('\$${product.price}',style: Theme.of(context).textTheme.titleSmall!.apply(decoration:TextDecoration.lineThrough)),
-            if(product.productType==ProductType.single.toString() && product.salePrice>0)  const SizedBox(width: DSize.spaceBtwItem),
-             TProductPriceText(price:controller.getProductPrice(product) ,isLarge: true),
+            if(product.productType==ProductType.single.toString() && salePercentage!=null)  const SizedBox(width: DSize.spaceBtwItem),
+             TProductPriceText(price:controller.getProductPrice(product,salePercentage) ,isLarge: true),
             const SizedBox(height: DSize.spaceBtwItem/1.5),
           ],
         ),

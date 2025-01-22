@@ -39,6 +39,35 @@ class ProductRepository extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> getProductsByIds(List<String> productIds) async {
+    try {
+      // Lấy tất cả sản phẩm từ Firestore
+      final snapshot = await _db.collection("Products").get();
+      // Map productId -> ProductModel
+      final allProducts = snapshot.docs
+          .map((e) => ProductModel.fromSnapshot(e))
+          .toList()
+          .where((product) => productIds.contains(product.id))
+          .toList();
+
+      // Sắp xếp danh sách theo thứ tự của productIds
+      allProducts.sort((a, b) {
+        final indexA = productIds.indexOf(a.id);
+        final indexB = productIds.indexOf(b.id);
+        return indexA.compareTo(indexB);
+      });
+
+      return allProducts;
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw "message: $e";
+    }
+  }
+
+
   Future<List<ProductModel>> getProductsBySearchQuery(String query) async {
     try {
       // Lấy tất cả các sản phẩm từ Firestore

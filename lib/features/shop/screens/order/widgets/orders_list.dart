@@ -20,7 +20,6 @@ class TOrderListItems extends StatelessWidget {
     final dark = DHelperFunctions.isDarkMode(context);
     final controller =    Get.put(OrderController());
     return FutureBuilder(
-
       future: controller.fetchUserOrders(),
       builder: ( _,  snapshot) {
         final emptyWidget = TAnimationLoaderWidget(
@@ -154,10 +153,6 @@ class TOrderListItems extends StatelessWidget {
               ),
             );
           }
-
-
-
-
 
         );
       },

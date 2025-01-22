@@ -4,6 +4,7 @@ import 'package:t_store/features/personalization/models/address_model.dart';
 import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/formatter/formatter.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
+import '../../../data/model/OrderDetailResponseModel.dart';
 import 'cart_item_model.dart';
 
 class OrderModel {
@@ -16,17 +17,19 @@ class OrderModel {
   final AddressModel? address;
   final DateTime? deliveryDate;
   final List<CartItemModel> items;
+  final OrderDetailModel? orderDetail;
 
   OrderModel(
-      {required this.id,
-      this.userId = '',
-      required this.status,
-      required this.totalAmount,
-      required this.orderDate,
-      this.paymentMethod = 'Paypal',
-      this.address,
-      this.deliveryDate,
-      required this.items});
+        {required this.id,
+        this.userId = '',
+        required this.status,
+        required this.totalAmount,
+        required this.orderDate,
+        this.paymentMethod = 'Paypal',
+        this.address,
+        this.deliveryDate,
+        required this.items,
+        this.orderDetail,});
 
   String get formattedOrderDate => DFormatter.formatDate(orderDate);
 
@@ -49,7 +52,8 @@ class OrderModel {
       "paymentMethod": paymentMethod,
       "address": address?.toJson(),
       "deliveryDate": deliveryDate,
-      'items': items.map((item) => item.toJson()).toList()
+      'items': items.map((item) => item.toJson()).toList(),
+      'orderDetail': orderDetail?.toJson(),
     };
   }
 
@@ -69,6 +73,9 @@ class OrderModel {
             : (data['deliveryDate'] as Timestamp).toDate(),
         items: (data['items'] as List<dynamic>)
             .map((e) => CartItemModel.fromJson(e as Map<String, dynamic>))
-            .toList());
+            .toList(),
+        orderDetail: data['orderDetail'] != null
+          ? OrderDetailModel.fromSnapshot(data['orderDetail'] as Map<String, dynamic>)
+          : null, );
   }
 }

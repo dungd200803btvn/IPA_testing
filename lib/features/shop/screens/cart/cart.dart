@@ -18,7 +18,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(CartController());
-   final orderController=  Get.put(OrderController());
+    Get.put(OrderController());
     return Scaffold(
       appBar: TAppBar(
         title: Text(
@@ -38,17 +38,15 @@ class CartScreen extends StatelessWidget {
           onActionPressed: (){
             final navController = Get.find<NavigationController>();
             // Sử dụng Get.to để điều hướng
-            Get.offAll(NavigationMenu());
+            Get.offAll(const NavigationMenu());
           }
         );
         if (controller.cartItems.isEmpty) {
           return emptyWidget;
         } else {
-          return const SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(DSize.defaultspace),
-              child: TCartItems(),
-            ),
+          return const Padding(
+            padding: EdgeInsets.all(DSize.defaultspace),
+            child: TCartItems(),
           );
         }
       }),
@@ -59,7 +57,7 @@ class CartScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => Get.to(() => const CheckoutScreen()),
                 child: Obx(() =>
-                    Text('Checkout \$${controller.totalCartPrice.value}')),
+                    Text('Checkout \$${controller.totalCartPrice.value.toStringAsFixed(1)}')),
               ),
             ),
     );

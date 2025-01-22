@@ -87,6 +87,6 @@ class AddressModel {
 
   @override
   String toString() {
-    return "$street, $commune, $district $city, $country";
+    return "$street, $commune, $district, $city, $country";
   }
 }

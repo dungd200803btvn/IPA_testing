@@ -27,6 +27,31 @@ class AddressRepository extends GetxController {
     }
   }
 
+  Future<AddressModel> fetchSelectedAddress() async {
+    try {
+      final userId = AuthenticationRepository.instance.authUser!.uid;
+      if (userId.isEmpty) {
+        throw "Unable to find user information. Try again in a few minutes.";
+      }
+
+      final result = await _db
+          .collection('User')
+          .doc(userId)
+          .collection('Addresses')
+          .where('SelectedAddress', isEqualTo: true)
+          .limit(1)
+          .get();
+
+      if (result.docs.isEmpty) {
+        return AddressModel.empty();
+      }
+
+      return AddressModel.fromDocumentSnapshot(result.docs.first);
+    } catch (e) {
+      throw "Something went wrong while fetching the selected address. Try again later.";
+    }
+  }
+
   //clear the selected field for all addresses
   Future<void> updateSelectedField(String addressId, bool selected) async {
     try {

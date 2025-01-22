@@ -79,6 +79,16 @@ class UserController extends GetxController {
     }
   }
 
+  // Lấy thông tin chi tiết của user hiện tại bằng userId
+  Future<UserModel> fetchCurrentUserDetails(String userId) async {
+    try {
+      final userDetails = await userRepository.fetchUserDetails();
+      return userDetails;
+    } catch (e) {
+      throw 'Failed to fetch user details: $e';
+    }
+  }
+
   //delete account warning
   void deleteAccountWarningPopup() {
     Get.defaultDialog(

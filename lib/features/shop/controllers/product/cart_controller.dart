@@ -9,7 +9,6 @@ import 'package:t_store/utils/popups/loader.dart';
 
 class CartController extends GetxController {
   static CartController get instance => Get.find();
-
   ///variables
   RxInt numOfCartItems = 0.obs;
   RxDouble totalCartPrice = 0.0.obs;
@@ -21,7 +20,7 @@ class CartController extends GetxController {
     loadCartItems();
   }
   ///add items in the cart
-  void addToCart(ProductModel product) {
+  void addToCart(ProductModel product,[double? salePercentage]) {
     //quantity check
     if (productQuantityInCart.value < 1) {
       TLoader.customToast(message: 'Select Quantity');
@@ -48,7 +47,7 @@ class CartController extends GetxController {
       }
     }
     //convert to cartItem with the given quantity
-    final selectedCartItem = toCartModel(product, productQuantityInCart.value);
+    final selectedCartItem = toCartModel(product, productQuantityInCart.value,salePercentage);
     //check if already added in cart
     int index = cartItems.indexWhere((cartItem) =>cartItem.productId  == selectedCartItem.productId && cartItem.variationId== selectedCartItem.variationId);
     if(index>=0){
@@ -95,22 +94,18 @@ void removeFromCartDialog(int index){
     );
 }
 
-
-
-
-
-  CartItemModel toCartModel(ProductModel product, int quantity) {
+  CartItemModel toCartModel(ProductModel product, int quantity,[double? salePercentage ]) {
     if (product.productType == ProductType.single.toString()) {
       variationController.resetSelectedAttributes();
     }
     final variation = variationController.selectedVariation.value;
     final isVariation = variation.id.isNotEmpty;
     final price = isVariation
-        ? variation.salePrice > 0.0
-            ? variation.salePrice
+        ? salePercentage!=null
+            ? variation.price*(1-salePercentage)
             : variation.price
-        : product.salePrice > 0.0
-            ? product.salePrice
+        : salePercentage!=null
+            ? product.price*(1-salePercentage)
             : product.price;
     return CartItemModel(
         productId: product.id,
@@ -162,7 +157,15 @@ void removeFromCartDialog(int index){
     updateCart();
   }
 
-  void updateAlreadyAddedProductCount(ProductModel product){
+  void updateAlreadyAddedProductCount(ProductModel product,[double? salePercentage]){
+    if (salePercentage != null) {
+      // Tìm sản phẩm trong giỏ hàng
+      final foundItem = cartItems.firstWhereOrNull((item) => item.productId == product.id);
+      if (foundItem != null) {
+        // Cập nhật giá của sản phẩm với khuyến mãi
+        foundItem.price = product.price * (1 - salePercentage);
+      }
+    }
     if(product.productType == ProductType.single.toString()){
       productQuantityInCart.value = getProductQuantityInCart(product.id);
     }else{
@@ -174,6 +177,4 @@ void removeFromCartDialog(int index){
       }
     }
   }
-
-
 }

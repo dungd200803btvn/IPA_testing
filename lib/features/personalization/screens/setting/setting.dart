@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
@@ -12,7 +14,10 @@ import 'package:t_store/features/shop/screens/order/order.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
+import '../../../../api/ShippingService.dart';
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
+import '../../../../data/repositories/vouchers/VoucherRepository.dart';
+import '../../../voucher/screens/voucher.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -69,10 +74,13 @@ class SettingScreen extends StatelessWidget {
                     icon: Iconsax.bank,
                     title: 'Bank Account',
                     subTitle: 'Withdraw balance to registered bank account'),
-                const TSettingMenuTile(
+                TSettingMenuTile(
                     icon: Iconsax.discount_shape,
                     title: 'My Coupons',
-                    subTitle: 'List of all discounted coupons'),
+                    subTitle: 'List of all discounted coupons',
+                  onTap: ()=> Get.to(()=>VoucherScreen( userId: AuthenticationRepository.instance.authUser!.uid,)) ,
+                ),
+
                 const TSettingMenuTile(
                     icon: Iconsax.notification,
                     title: 'Notifications',
@@ -116,7 +124,11 @@ class SettingScreen extends StatelessWidget {
                 SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () => AuthenticationRepository.instance.logout(),
+                      onPressed: () async {
+                        final shippingService = ShippingOrderService();
+                        await shippingService.createShippingOrder();
+                        AuthenticationRepository.instance.logout();
+                      }  ,
                       child: const Text('Logout'),
                     )),
                 const SizedBox(height: DSize.spaceBtwSection * 2.5),

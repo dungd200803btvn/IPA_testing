@@ -11,6 +11,7 @@ import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 
+import '../../suggestion/suggestion_repository.dart';
 import '../models/brand_model.dart';
 import '../models/product_variation_model.dart';
 class ProductController extends GetxController {
@@ -19,7 +20,7 @@ class ProductController extends GetxController {
   RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
   RxList<ProductModel> allProducts = <ProductModel>[].obs;
   final productRepository = Get.put(ProductRepository());
-
+  final suggestionRepository = Get.put(ProductSuggestionRepository());
   @override
   void onInit() {
     fetchFeaturedProducts();
@@ -52,18 +53,37 @@ class ProductController extends GetxController {
     }
   }
 
-  String getProductPrice(ProductModel product) {
+  Future<List<ProductModel>> getSuggestedProductsById(String productId) async{
+    try{
+      final sortedSuggestions = await suggestionRepository.getSortedSuggestions(productId);
+      final productIds = sortedSuggestions.map((e) => e.productId).toList();
+      final products = await productRepository.getProductsByIds(productIds);
+      return products;
+    }catch(e){
+      TLoader.errorSnackbar(title: 'Oh Snap!',message: e.toString());
+      return [];
+    }
+  }
+
+  String getProductPrice(ProductModel product, [double? saleParcentage]) {
     double smallestPrice = double.infinity;
     double largestPrice = 0.0;
     //if no variations exist, return simple price or sale price
-    if (product.productType == ProductType.single.toString()) {
-      return (product.salePrice > 0 ? product.salePrice : product.price)
-          .toString();
+    if(saleParcentage==null && product.productType == ProductType.single.toString()){
+      return product.price.toStringAsFixed(1);
+    }
+    else if (product.productType == ProductType.single.toString() && saleParcentage!=null ) {
+      final discountedPrice = product.price * (1 - saleParcentage);
+      return discountedPrice.toStringAsFixed(1);
     } else {
       //calculate max and min price
       for (var variation in product.productVariations!) {
-        double priceToConsider =
-            variation.salePrice > 0.0 ? variation.salePrice : variation.price;
+        double priceToConsider;
+        if(saleParcentage!=null){
+          priceToConsider  =  variation.price * (1 - saleParcentage);
+        }else{
+          priceToConsider  = variation.price;
+        }
         //update min max
         if (priceToConsider < smallestPrice) {
           smallestPrice = priceToConsider;
@@ -73,27 +93,24 @@ class ProductController extends GetxController {
         }
       }
       if (smallestPrice.isEqual(largestPrice)) {
-        return largestPrice.toString();
+        return largestPrice.toStringAsFixed(1);
       } else {
-        return '$smallestPrice - \$$largestPrice';
+        return '${smallestPrice.toStringAsFixed(1)} - \$${largestPrice.toStringAsFixed(1)}';
       }
     }
   }
 
-  String? calculateSalePercentage(double originalPrice, double? salePrice) {
-    if (salePrice == null || salePrice <= 0.0) {
+  String? calculateSalePercentage([double? salePercentage]) {
+    if (salePercentage == null ) {
       return null;
     }
-    if (originalPrice <= 0.0) return null;
-    double percentage = ((originalPrice - salePrice) / originalPrice) * 100;
+    double percentage = salePercentage * 100;
     return percentage.toStringAsFixed(0);
   }
 
   String getProductStockStatus(int stock) {
     return stock > 0 ? 'In Stock' : 'Out Stock';
   }
-
-
 
   Future<String> getFileData(String path) async {
     return await rootBundle.loadString(path);

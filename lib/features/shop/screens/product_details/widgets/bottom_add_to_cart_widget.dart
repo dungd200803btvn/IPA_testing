@@ -8,13 +8,17 @@ import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
 class TBottomAddToCart extends StatelessWidget {
-  const TBottomAddToCart({super.key, required this.product});
+  const TBottomAddToCart({super.key, required this.product,this.salePercentage});
 final ProductModel product;
+final double? salePercentage;
   @override
   Widget build(BuildContext context) {
     final dark = DHelperFunctions.isDarkMode(context);
     final controller = CartController.instance;
-    controller.updateAlreadyAddedProductCount(product);
+    // controller.updateAlreadyAddedProductCount(product);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.updateAlreadyAddedProductCount(product);
+    });
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: DSize.defaultspace,vertical: DSize.defaultspace/2),
       decoration: BoxDecoration(
@@ -52,7 +56,7 @@ final ProductModel product;
 
               ),
             ),
-            ElevatedButton(onPressed: controller.productQuantityInCart.value<1 ? null: () => controller.addToCart(product),
+            ElevatedButton(onPressed: controller.productQuantityInCart.value<1 ? null: () => controller.addToCart(product,salePercentage),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(DSize.md),
               backgroundColor: DColor.black,

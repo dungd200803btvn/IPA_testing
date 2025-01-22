@@ -63,7 +63,7 @@ class SignupController extends GetxController {
           phoneNumber.text.trim(),
           "");
       final userRepository = Get.put(UserRepository());
-    await  userRepository.saveUserRecord(newUser);
+      await  userRepository.saveUserRecord(newUser);
     //Show Success Message
       TFullScreenLoader.stopLoading();
       TLoader.successSnackbar(title: 'Congratulations',message: "Your account has been created!Verify email to continue");

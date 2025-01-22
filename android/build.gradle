@@ -1,4 +1,9 @@
+buildscript {
+    ext.kotlin_version = '1.9.10' // Thêm dòng này để chỉ định phiên bản Kotlin
+}
+
 allprojects {
+
     repositories {
         google()
         mavenCentral()

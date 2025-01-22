@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_store/features/shop/controllers/product_controller.dart';
 import '../../../../../common/widgets/products/cart/add_remove_button.dart';
 import '../../../../../common/widgets/products/cart/cart_item.dart';
 import '../../../../../common/widgets/texts/product_price_text.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../controllers/product/cart_controller.dart';
+import '../../all_products/all_products.dart';
 
 class TCartItems extends StatelessWidget {
   const TCartItems({super.key, this.showAddRemoveButtons = true});
@@ -14,6 +17,7 @@ class TCartItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CartController.instance;
+    final productController = ProductController.instance;
     return Obx(
       () => ListView.separated(
           shrinkWrap: true,
@@ -35,8 +39,8 @@ class TCartItems extends StatelessWidget {
                           Row(
                             children: [
                               //Can le trai
-                              SizedBox(
-                                width: 70,
+                              const SizedBox(
+                                width: 10,
                               ),
                               //Add and remove button
                               TProductQuantityWithAddRemoveButton(
@@ -45,10 +49,35 @@ class TCartItems extends StatelessWidget {
                                 remove: () =>
                                     controller.removeOneFromCart(item),
                               ),
+                              // Button: See suggested products
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(maxWidth: 180),
+                                child: TextButton(
+                                  onPressed: () => Get.to(
+                                        () => AllProducts(
+                                      title: 'Suggest promotional products',
+                                      query: FirebaseFirestore.instance
+                                          .collection('Products')
+                                          .where('IsFeatured', isEqualTo: true)
+                                          .limit(20),
+                                      futureMethod: productController.getSuggestedProductsById(item.productId),
+                                          applyDiscount: true,
+                                    ),
+                                  ),
+                                  child: const Text("See suggested products",
+                                  overflow: TextOverflow.ellipsis,
+                                    selectionColor: Colors.white,
+
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                           //Product total price
-                           TProductPriceText(price: (item.price * item.quantity).toStringAsFixed(1)),
+                          TProductPriceText(
+                            price: (item.price * item.quantity).toStringAsFixed(1),
+                          ),
+                           // TProductPriceText(price: (item.price * item.quantity).toStringAsFixed(1)),
                         ],
                       )
                   ],

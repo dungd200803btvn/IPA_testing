@@ -13,20 +13,21 @@ class ProductCardAddtoCartButton extends StatelessWidget {
   const ProductCardAddtoCartButton({
     super.key,
     required this.product,
+    this.salePercentage,
   });
 
   final ProductModel product;
-
+  final  double? salePercentage;
   @override
   Widget build(BuildContext context) {
     final controller = CartController.instance;
     return GestureDetector(
       onTap: () {
         if (product.productType == ProductType.single.toString()) {
-          final cartItem = controller.toCartModel(product, 1);
+          final cartItem = controller.toCartModel(product, 1,salePercentage);
           controller.addOneToCart(cartItem);
         } else {
-          Get.to(()=> ProductDetailScreen(product: product));
+          Get.to(()=> ProductDetailScreen(product: product,salePercentage: salePercentage,));
         }
       },
       child: Obx(() {

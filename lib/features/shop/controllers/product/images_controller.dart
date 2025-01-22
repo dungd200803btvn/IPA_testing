@@ -9,28 +9,47 @@ class ImagesController extends GetxController {
 
   //variables
   RxString selectedProductImage = ''.obs;
-
+// List of all product images
+  late RxList<String> images = <String>[].obs;
   //get all images from product and variations
-  List<String> getAllProductImages(ProductModel productModel) {
-    Set<String> images = {};
+  // List<String> getAllProductImages(ProductModel productModel) {
+  //   Set<String> images = {};
+  //
+  //   // Tải hình ảnh thu nhỏ (không có bản sao ở đây)
+  //   // images.add(productModel.thumbnail);
+  //    selectedProductImage.value = productModel.thumbnail;
+  //
+  //   // Thêm hình ảnh duy nhất từ productModel.images
+  //   if (productModel.images != null) {
+  //     images.addAll(productModel.images!.where((image) => !images.contains(image)));
+  //
+  //   }
+  //
+  //   // Thêm hình ảnh duy nhất từ product variations
+  //   // if (productModel.productVariations != null &&
+  //   //     productModel.productVariations!.isNotEmpty) {
+  //   //   images.addAll(productModel.productVariations!.map((e) => e.image).where((image) => !images.contains(image)));
+  //   // }
+  //
+  //   return images.toList();
+  // }
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
+  // Initialize the controller with product data
+  void initialize(ProductModel productModel) {
+    // Reset the selected image and image list
+    selectedProductImage.value = productModel.thumbnail;
+    images.clear();
 
-    // Tải hình ảnh thu nhỏ (không có bản sao ở đây)
-    // images.add(productModel.thumbnail);
-     selectedProductImage.value = productModel.thumbnail;
-
-    // Thêm hình ảnh duy nhất từ productModel.images
+    // Add thumbnail and other unique images
+    Set<String> uniqueImages = {productModel.thumbnail};
     if (productModel.images != null) {
-      images.addAll(productModel.images!.where((image) => !images.contains(image)));
-
+      uniqueImages.addAll(productModel.images!);
     }
-
-    // Thêm hình ảnh duy nhất từ product variations
-    // if (productModel.productVariations != null &&
-    //     productModel.productVariations!.isNotEmpty) {
-    //   images.addAll(productModel.productVariations!.map((e) => e.image).where((image) => !images.contains(image)));
-    // }
-
-    return images.toList();
+    images.addAll(uniqueImages);
   }
 
 

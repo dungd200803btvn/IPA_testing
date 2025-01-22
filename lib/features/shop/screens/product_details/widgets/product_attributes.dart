@@ -13,10 +13,10 @@ import '../../../../../common/widgets/chips/choice_chip.dart';
 import '../../../models/product_model.dart';
 
 class ProductAttributes extends StatelessWidget {
-  const ProductAttributes({super.key, required this.product});
+  const ProductAttributes({super.key, required this.product,this.salePercentage});
 
   final ProductModel product;
-
+  final double? salePercentage;
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(VariationController());
@@ -49,7 +49,7 @@ class ProductAttributes extends StatelessWidget {
                               const TProductTitleText(
                                   title: 'Price', smallSize: true),
                               //Actual price
-                              if(controller.selectedVariation.value.salePrice>0)
+                              if(salePercentage!=null)
                               Text('\$${controller.selectedVariation.value.price}',
                                   style: Theme.of(context)
                                       .textTheme
@@ -58,9 +58,8 @@ class ProductAttributes extends StatelessWidget {
                                           decoration:
                                               TextDecoration.lineThrough)),
                               //Sale price
-      
                               const SizedBox(width: DSize.spaceBtwItem / 2),
-                               TProductPriceText(price: controller.getVariationPrice())
+                               TProductPriceText(price: controller.getVariationPrice(salePercentage))
                             ],
                           ),
                           //Stock

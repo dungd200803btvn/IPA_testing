@@ -21,7 +21,10 @@ class TProductImageSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = DHelperFunctions.isDarkMode(context);
     final controller = Get.put(ImagesController());
-    final images = controller.getAllProductImages(product);
+    // Gọi initialize sau khi build hoàn thành
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.initialize(product);
+    });
     return TCurvedEdgeWidget(
       child: Container(
         color: dark ? DColor.darkerGrey : DColor.light,
@@ -56,10 +59,19 @@ class TProductImageSlider extends StatelessWidget {
                 child: ListView.separated(
                   itemBuilder: (_, index) => Obx(
                     (){
+                      final images = controller.images;
+                      if (index < 0 || index >= images.length) {
+                        return const SizedBox.shrink(); // Widget trống nếu index không hợp lệ
+                      }
                       final imageSelected = controller.selectedProductImage.value == images[index];
                       return TRoundedImage(
                         isNetWorkImage: true,
-                        onPressed: ()=> controller.selectedProductImage.value = images[index],
+                        // onPressed: ()=> controller.selectedProductImage.value = images[index],
+                        onPressed: () {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            controller.selectedProductImage.value = images[index];
+                          });
+                        },
                         imageUrl: images[index],
                         width: 80,
                         backgroundColor: dark ? DColor.dark : DColor.white,
@@ -70,7 +82,7 @@ class TProductImageSlider extends StatelessWidget {
                   ),
                   separatorBuilder: (_, __) =>
                       const SizedBox(width: DSize.spaceBtwItem),
-                  itemCount: images.length,
+                  itemCount: controller.images.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   physics: const AlwaysScrollableScrollPhysics(),

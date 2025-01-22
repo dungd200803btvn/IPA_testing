@@ -79,71 +79,104 @@ class LoginController extends GetxController {
       TLoader.errorSnackbar(title: "Oh snap", message: "Wrong email or password");
     }
   }
-//Google sign in
-  Future<void> googleSignIn1() async{
-    try{
-    //start loading
-      TFullScreenLoader.openLoadingDialog("Logging you in...", TImages.docerAnimation);
-      //Check internet connect
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) {
-        TFullScreenLoader.stopLoading();
-        return;
-      }
-      //google authentication
-      final userCredentials = await AuthenticationRepository.instance.signInWithGoole();
-      // save user record
-      await userController.saveUserRecord(userCredentials);
-      // remove loader
-        TFullScreenLoader.stopLoading();
-        UserController.instance.fetchUserRecord();
-        Get.to(()=> const NavigationMenu());
 
-    }catch(e){
-      // remove loader
-      TFullScreenLoader.stopLoading();
-      TLoader.errorSnackbar(title: 'Oh snap',message: e.toString());
-    }
-  }
+  // Future<void> googleSignIn() async {
+  //   try {
+  //     // Start loading indicator
+  //     TFullScreenLoader.openLoadingDialog("Logging you in...", TImages.docerAnimation);
+  //
+  //     // Check internet connection
+  //     final isConnected = await NetworkManager.instance.isConnected();
+  //     if (!isConnected) {
+  //       TFullScreenLoader.stopLoading();
+  //       return;
+  //     }
+  //
+  //     // Google authentication
+  //     final userCredentials = await AuthenticationRepository.instance.signInWithGoole();
+  //
+  //     // Check existing user record
+  //     final existingUser = await UserRepository.instance.fetchUserDetails();
+  //
+  //     if (existingUser ==  UserModel.empty() || existingUser.id != userCredentials?.user!.uid) {
+  //       // New user or different account: Save user record
+  //       await userController.saveUserRecord(userCredentials);
+  //     } else {
+  //       // Existing account: Fetch updated user data (optional)
+  //       // You can uncomment the following line if you want to
+  //       // ensure the local user reflects any changes made on the server
+  //       // await UserController.instance.fetchUserRecord();
+  //     }
+  //     UserController.instance.fetchUserRecord();
+  //     // Remove loader
+  //     TFullScreenLoader.stopLoading();
+  //
+  //     // Navigate to NavigationMenu
+  //     Get.to(() => const NavigationMenu());
+  //   } catch (e) {
+  //     // Remove loader
+  //     TFullScreenLoader.stopLoading();
+  //     TLoader.errorSnackbar(title: 'Oh snap', message: e.toString());
+  //   }
+  // }
+
   Future<void> googleSignIn() async {
     try {
       // Start loading indicator
+      print("Starting loading dialog...");
       TFullScreenLoader.openLoadingDialog("Logging you in...", TImages.docerAnimation);
 
       // Check internet connection
+      print("Checking internet connection...");
       final isConnected = await NetworkManager.instance.isConnected();
+      print("Internet connection status: $isConnected");
       if (!isConnected) {
+        print("No internet connection. Stopping loader and returning.");
         TFullScreenLoader.stopLoading();
         return;
       }
 
       // Google authentication
+      print("Attempting Google Sign-In...");
       final userCredentials = await AuthenticationRepository.instance.signInWithGoole();
+      print("Google Sign-In credentials: ${userCredentials?.user?.uid}");
 
       // Check existing user record
+      print("Fetching existing user details...");
       final existingUser = await UserRepository.instance.fetchUserDetails();
+      print("Fetched user details: ${existingUser.id}");
 
-      if (existingUser ==  UserModel.empty() || existingUser.id != userCredentials?.user!.uid) {
+      if (existingUser == UserModel.empty() || existingUser.id != userCredentials?.user!.uid) {
         // New user or different account: Save user record
+        print("New user or different account detected. Saving user record...");
         await userController.saveUserRecord(userCredentials);
       } else {
         // Existing account: Fetch updated user data (optional)
-        // You can uncomment the following line if you want to
-        // ensure the local user reflects any changes made on the server
-        // await UserController.instance.fetchUserRecord();
+        print("Existing account detected. Fetching updated user data...");
+        UserController.instance.fetchUserRecord();
       }
-      UserController.instance.fetchUserRecord();
+
+      // Fetch updated user record after sign-in
+      print("Fetching user record post-login...");
+      await UserController.instance.fetchUserRecord();
+
       // Remove loader
+      print("Stopping loader...");
       TFullScreenLoader.stopLoading();
 
       // Navigate to NavigationMenu
+      print("Navigating to NavigationMenu...");
       Get.to(() => const NavigationMenu());
     } catch (e) {
+      // Log error details
+      print("Error encountered: $e");
+
       // Remove loader
       TFullScreenLoader.stopLoading();
       TLoader.errorSnackbar(title: 'Oh snap', message: e.toString());
     }
   }
+
 
 
 }

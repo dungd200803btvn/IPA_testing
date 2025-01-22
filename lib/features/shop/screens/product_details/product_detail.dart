@@ -17,9 +17,10 @@ import '../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../models/product_model.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({super.key, required this.product});
+  const ProductDetailScreen({super.key, required this.product, this.salePercentage});
 
   final ProductModel product;
+  final double? salePercentage;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +31,13 @@ class ProductDetailScreen extends StatelessWidget {
           TCartCounterIcon(),
         ],
       ),
-      bottomNavigationBar:  TBottomAddToCart(product: product,),
+      bottomNavigationBar:  TBottomAddToCart(product: product,salePercentage: salePercentage,),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 1. SLIDER ẢNH SẢN PHẨM
+
             TProductImageSlider(product: product),
             // 2. CHI TIẾT SẢN PHẨM
             Padding(
@@ -49,10 +51,10 @@ class ProductDetailScreen extends StatelessWidget {
                   // 2.1 Xếp hạng và chia sẻ
                   const TRatingAndShare(),
                   // 2.2 Giá, Tiêu đề, Tồn kho, Chi nhánh
-                  TProductMetaData(product: product),
+                  TProductMetaData(product: product,salePercentage: salePercentage),
                   // 2.3 Thuộc tính
                   if (product.productType == ProductType.variable.toString())
-                    ProductAttributes(product: product),
+                    ProductAttributes(product: product,salePercentage: salePercentage,),
                   if (product.productType == ProductType.variable.toString())
                     const SizedBox(height: DSize.spaceBtwSection),
                   // 2.4 Nút Thanh toán

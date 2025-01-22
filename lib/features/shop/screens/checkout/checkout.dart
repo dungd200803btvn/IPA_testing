@@ -27,7 +27,12 @@ class CheckoutScreen extends StatelessWidget {
     final cartController = CartController.instance;
     final orderController = OrderController.instance;
     final subTotal = cartController.totalCartPrice.value;
-    final totalAmount = DPricingCalculator.calculateTotalPrice(subTotal, 'US');
+    // Gọi hàm processOrder ngay khi màn hình được build
+    Future.delayed(Duration.zero, () {
+    if (subTotal > 0) {
+    orderController.calculateFeeAndTotal(subTotal);
+    }
+    });
     return Scaffold(
       appBar: TAppBar(
         showBackArrow: true,
@@ -83,10 +88,9 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(DSize.defaultspace),
         child: ElevatedButton (
-          onPressed: subTotal> 0 ? ()=> orderController.processOrder(totalAmount)
+          onPressed: subTotal> 0 ? ()=> orderController.processOrder(subTotal)
           : () => TLoader.warningSnackbar(title: 'Empty Cart',message: 'Add items in the cart in order to proceed'),
-          child: Text('Checkout \$$totalAmount'),
-
+          child: Obx(() => Text('Checkout: \$${orderController.totalAmount.value.toStringAsFixed(2)}')),
         ),
       ),
 

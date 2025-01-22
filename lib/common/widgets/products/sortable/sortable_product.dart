@@ -6,15 +6,21 @@ import 'package:t_store/features/shop/models/product_model.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../layouts/grid_layout.dart';
 import '../product_cards/product_card_vertical.dart';
+
 class TSortableProducts extends StatelessWidget {
   const TSortableProducts({
     super.key, required this.products,
+    this.applyDiscount = false
   });
  final List<ProductModel> products;
+ final bool applyDiscount;
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AllProductsController());
-    controller.assignProducts(products);
+    // Di chuyển logic cập nhật trạng thái ra ngoài build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.assignProducts(products);
+    });
     return Column(
       children: [
         //Drop down
@@ -27,8 +33,29 @@ class TSortableProducts extends StatelessWidget {
           decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort)),),
         const SizedBox(height: DSize.spaceBtwSection,),
         /// Products
-        Obx(()=> TGridLayout(itemCount: controller.products.length, itemBuilder: (_,index)=> TProductCardVertical(product: controller.products[index],)))
+        Obx((){
+          final discounts  = applyDiscount? calculateDiscounts(products.length): [];
+          return TGridLayout(
+              itemCount: controller.products.length,
+              itemBuilder: (_,index)=> TProductCardVertical(product: controller.products[index],salePercentage: applyDiscount? discounts[index]/100.0: null,));
+
+    } ),
       ],
     );
+  }
+
+  // Tính toán giảm giá nếu cần
+  List<double> calculateDiscounts(int count) {
+    List<double> discounts = [];
+    double discount = 30.0;
+    for (int i = 0; i < count; i++) {
+      if (discount > 10.0) {
+        discounts.add(discount);
+        discount -= 2.0;
+      } else {
+        discounts.add(10.0);
+      }
+    }
+    return discounts;
   }
 }

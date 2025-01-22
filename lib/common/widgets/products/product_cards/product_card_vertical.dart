@@ -18,15 +18,18 @@ import '../favourite_icon/favourite_icon.dart';
 import 'add_to_cart_button.dart';
 
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key, required this.product});
+  const TProductCardVertical({super.key,
+    required this.product,
+    this.salePercentage,});
   final ProductModel product;
+  final  double? salePercentage;
+
   @override
   Widget build(BuildContext context) {
     final dark = DHelperFunctions.isDarkMode(context);
     final controller = ProductController.instance;
-    final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     return GestureDetector(
-      onTap: () => Get.to( ProductDetailScreen(product: product,)),
+      onTap: () => Get.to( ProductDetailScreen(product: product,salePercentage: salePercentage,)),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -58,7 +61,7 @@ class TProductCardVertical extends StatelessWidget {
                       backgroundColor: DColor.secondary.withOpacity(0.8),
                       padding: const EdgeInsets.symmetric(
                           horizontal: DSize.sm, vertical: DSize.xs),
-                      child: Text('$salePercentage%',
+                      child: Text('${controller.calculateSalePercentage(salePercentage)}%',
                           style: Theme.of(context)
                               .textTheme
                               .labelLarge!
@@ -97,7 +100,8 @@ class TProductCardVertical extends StatelessWidget {
                 Flexible(
                   child: Column(
                     children: [
-                      if(product.productType==ProductType.single.toString() && product.salePrice> 0)
+                      if(product.productType==ProductType.single.toString() && salePercentage!=null)
+                        //gia cu bi gach di
                         Padding(
                           padding: const EdgeInsets.only(left: DSize.sm),
                           child: Text(
@@ -105,15 +109,15 @@ class TProductCardVertical extends StatelessWidget {
                             style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
                           ),
                         ),
-
+                      //Gia moi sau khi ap dung chinh sach khuyen mai
                       Padding(
                         padding: const EdgeInsets.only(left: DSize.sm),
-                        child: TProductPriceText(price: controller.getProductPrice(product)),
+                        child: TProductPriceText(price: controller.getProductPrice(product,salePercentage)),
                       ),
                     ],
                   ),
                 ),
-                ProductCardAddtoCartButton(product: product,)
+                ProductCardAddtoCartButton(product: product,salePercentage: salePercentage,)
               ],
             ),
 
@@ -123,9 +127,3 @@ class TProductCardVertical extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

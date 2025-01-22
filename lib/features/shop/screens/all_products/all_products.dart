@@ -18,8 +18,9 @@ class AllProducts extends StatelessWidget {
     this.query,
     this.futureMethod,
     this.products,
+    this.applyDiscount = false
   });
-
+  final bool applyDiscount;
   final String title;
   final Query? query;
   final Future<List<ProductModel>>? futureMethod;
@@ -46,7 +47,7 @@ class AllProducts extends StatelessWidget {
             final widget =TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot ,loader: loader);
             if(widget!=null) return widget;
             final products = snapshot.data!;
-            return TSortableProducts(products: products,);
+            return TSortableProducts(products: products,applyDiscount: applyDiscount,);
           },
            ),
         ),

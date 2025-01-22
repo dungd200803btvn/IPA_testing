@@ -1,7 +1,7 @@
 class CartItemModel {
   String productId;
   String title;
-  double price;
+  double _price;
   String? image;
   int quantity;
   String variationId;
@@ -10,20 +10,30 @@ class CartItemModel {
 
   CartItemModel({required this.productId,
     this.title = ' ',
-    this.price = 0.0,
+    double price = 0.0,
     this.image,
     required this.quantity,
     this.variationId = ' ',
     this.brandName,
-    this.selectedVariation});
+    this.selectedVariation}): _price = price;
 
   static CartItemModel empty() => CartItemModel(productId: '', quantity: 0);
+  /// Getter cho price
+  double get price => _price;
 
+  /// Setter cho price
+  set price(double newPrice) {
+    if (newPrice >= 0) {
+      _price = newPrice;
+    } else {
+      throw ArgumentError('Price cannot be negative');
+    }
+  }
   Map<String, dynamic> toJson() {
     return {
       'productId': productId,
       'title': title,
-      'price': price,
+      'price': _price,
       'image': image,
       'quantity': quantity,
       'variationId': variationId,
