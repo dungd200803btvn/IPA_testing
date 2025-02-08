@@ -13,7 +13,7 @@ class TLoader {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(
         elevation: 0,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         backgroundColor: Colors.transparent,
         content: Container(
           padding: const EdgeInsets.all(12),
@@ -43,7 +43,7 @@ class TLoader {
         colorText: DColor.white,
         backgroundColor: DColor.primary,
         snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         margin: const EdgeInsets.all(10),
         icon: const Icon(
           Iconsax.check,
@@ -61,7 +61,7 @@ class TLoader {
         colorText: DColor.white,
         backgroundColor: Colors.orange,
         snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         margin: const EdgeInsets.all(20),
         icon: const Icon(
           Iconsax.warning_2,
@@ -77,7 +77,7 @@ class TLoader {
         colorText: DColor.white,
         backgroundColor: Colors.red.shade600,
         snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         margin: const EdgeInsets.all(20),
         icon: const Icon(
           Iconsax.warning_2,

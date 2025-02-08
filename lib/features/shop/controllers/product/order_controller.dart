@@ -7,6 +7,7 @@ import 'package:t_store/features/personalization/controllers/address_controller.
 import 'package:t_store/features/personalization/controllers/user_controller.dart';
 import 'package:t_store/features/shop/controllers/product/cart_controller.dart';
 import 'package:t_store/features/shop/controllers/product/checkout_controller.dart';
+import 'package:t_store/features/voucher/models/VoucherAppliedInfo.dart';
 import 'package:t_store/navigation_menu.dart';
 import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
@@ -25,6 +26,9 @@ class OrderController extends GetxController {
   static OrderController get instance => Get.find();
   var fee = 0.0.obs; // Biến quan sát được để lưu giá trị totalFee
   var totalAmount = 0.0.obs; // Biến quan sát được để lưu giá trị totalFee
+  var netAmount = 0.0.obs;
+  var totalDiscount = 0.0.obs;
+
   //variables
   final cartController = Get.put(CartController());
   final addressController = AddressController.instance;
@@ -118,6 +122,7 @@ class OrderController extends GetxController {
         fee.value = shippingOrder!.totalFee.toDouble()/24500.0;//doi sang USD
       }
       totalAmount.value = subTotal + fee.value;
+      netAmount.value = totalAmount.value;
     } catch (e) {
       TLoader.errorSnackbar(title: 'Oh Snap', message: e.toString());
     }
@@ -171,5 +176,3 @@ class OrderController extends GetxController {
   }
 
 }
-
-

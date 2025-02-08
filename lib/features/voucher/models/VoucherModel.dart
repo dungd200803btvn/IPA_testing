@@ -7,7 +7,8 @@ class VoucherModel {
   final String type; // fixed_discount, percentage_discount, free_shipping, ...
   final num discountValue;
   final num? maxDiscount; // Áp dụng cho percentage_discount
-  final num? minimumOrder; //gia tri don hang toi thieu co the ap dung
+  final num? minimumOrder;
+  final num? requiredPoints;//gia tri don hang toi thieu co the ap dung
   final List<String>? applicableUsers; // null = Áp dụng cho tất cả user
   final List<String>? applicableProducts; // null = Áp dụng cho tất cả sản phẩm
   final List<String>? applicableCategories; // null = Áp dụng cho tất cả danh mục
@@ -28,6 +29,7 @@ class VoucherModel {
     required this.discountValue,
     this.maxDiscount,
     this.minimumOrder,
+    this.requiredPoints,
     this.applicableUsers,
     this.applicableProducts,
     this.applicableCategories,
@@ -50,6 +52,7 @@ class VoucherModel {
       'discount_value': discountValue,
       'max_discount': maxDiscount,
       'minimum_order': minimumOrder,
+      'required_points':requiredPoints,
       'applicable_users': applicableUsers,
       'applicable_products': applicableProducts,
       'applicable_categories': applicableCategories,
@@ -74,6 +77,7 @@ class VoucherModel {
       discountValue: data['discount_value'] as num,
       maxDiscount: data['max_discount'] as num?,
       minimumOrder: data['minimum_order'] as num?,
+      requiredPoints: data['required_points'] as num?,
       applicableUsers: (data['applicable_users'] as List<dynamic>?)?.cast<String>(),
       applicableProducts: (data['applicable_products'] as List<dynamic>?)?.cast<String>(),
       applicableCategories: (data['applicable_categories'] as List<dynamic>?)?.cast<String>(),
@@ -97,6 +101,7 @@ class VoucherModel {
     num? discountValue,
     num? maxDiscount,
     num? minimumOrder,
+    num? requiredPoints,
     List<String>? applicableUsers,
     List<String>? applicableProducts,
     List<String>? applicableCategories,
@@ -117,6 +122,7 @@ class VoucherModel {
       discountValue: discountValue ?? this.discountValue,
       maxDiscount: maxDiscount ?? this.maxDiscount,
       minimumOrder: minimumOrder ?? this.minimumOrder,
+      requiredPoints: requiredPoints ?? this.requiredPoints,
       applicableUsers: applicableUsers ?? this.applicableUsers,
       applicableProducts: applicableProducts ?? this.applicableProducts,
       applicableCategories: applicableCategories ?? this.applicableCategories,

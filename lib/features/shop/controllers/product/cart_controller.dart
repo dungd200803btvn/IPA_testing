@@ -110,6 +110,7 @@ void removeFromCartDialog(int index){
     return CartItemModel(
         productId: product.id,
         title: product.title,
+        category: product.categoryId!=null ? product.categoryId!  : " ",
         price: price,
         quantity: quantity,
     variationId: variation.id,

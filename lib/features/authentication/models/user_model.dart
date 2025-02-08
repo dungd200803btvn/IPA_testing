@@ -9,10 +9,13 @@ class UserModel {
   final String email;
   String phoneNumber;
   String profilePicture;
+  int points;
 
   UserModel(
        this.id, this.firstName, this.lastName, this.userName, this.email,
-      this.phoneNumber, this.profilePicture);
+      this.phoneNumber, this.profilePicture,{
+        this.points = 100,
+      });
   String get fullname => '$firstName $lastName';
   String get formattedPhoneNo => DFormatter.formatPhoneNumber(phoneNumber);
   static List<String> nameParts(fullname) => fullname.split(" ");
@@ -45,7 +48,8 @@ class UserModel {
           data['UserName']?? " ",
           data['Email']?? " ",
           data['PhoneNumber']?? " ",
-          data['ProfilePicture']?? " ",);
+          data['ProfilePicture']?? " ",
+          points: data['Points'] ?? 100, );
     }else{
       return UserModel.empty();
     }

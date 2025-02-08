@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:t_store/common/widgets/success_screen/success_screen.dart';
 import 'package:t_store/features/shop/controllers/product/cart_controller.dart';
 import 'package:t_store/features/shop/controllers/product/order_controller.dart';
 import 'package:t_store/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:t_store/features/shop/screens/checkout/widgets/billing_amount_section.dart';
 import 'package:t_store/features/shop/screens/checkout/widgets/billing_payment_section.dart';
-import 'package:t_store/navigation_menu.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helper/helper_function.dart';
-import 'package:t_store/utils/helper/pricing_calculator.dart';
 import 'package:t_store/utils/popups/loader.dart';
 import '../../../../common/widgets/products/cart/coupon_widget.dart';
+import '../../../../data/repositories/authentication/authentication_repository.dart';
+import '../../../../utils/formatter/formatter.dart';
 import '../cart/widgets/cart_items.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final dark = DHelperFunctions.isDarkMode(context);
@@ -49,12 +46,13 @@ class CheckoutScreen extends StatelessWidget {
               children: [
                  const TCartItems(
                    showAddRemoveButtons: false,
+                   scrollable: false,
                 ),
                 const SizedBox(
                   height: DSize.spaceBtwSection,
                 ),
                 //Coupon TextField
-                const TCouponCode(),
+                Obx(()=> TCouponCode(totalValue: orderController.totalAmount.value*24500, userId: AuthenticationRepository.instance.authUser!.uid ,)),
                 const SizedBox(
                   height: DSize.spaceBtwSection,
                 ),
@@ -90,11 +88,10 @@ class CheckoutScreen extends StatelessWidget {
         child: ElevatedButton (
           onPressed: subTotal> 0 ? ()=> orderController.processOrder(subTotal)
           : () => TLoader.warningSnackbar(title: 'Empty Cart',message: 'Add items in the cart in order to proceed'),
-          child: Obx(() => Text('Checkout: \$${orderController.totalAmount.value.toStringAsFixed(2)}')),
+          child: Obx(() => Text('Checkout: ${DFormatter.formattedAmount(orderController.netAmount.value*24500)} VND')),
         ),
       ),
 
     );
   }
 }
-

@@ -10,16 +10,17 @@ import '../../../controllers/product/cart_controller.dart';
 import '../../all_products/all_products.dart';
 
 class TCartItems extends StatelessWidget {
-  const TCartItems({super.key, this.showAddRemoveButtons = true});
+  const TCartItems({super.key, this.showAddRemoveButtons = true, this.scrollable = true,});
 
   final bool showAddRemoveButtons;
-
+  final bool scrollable;
   @override
   Widget build(BuildContext context) {
     final controller = CartController.instance;
     final productController = ProductController.instance;
     return Obx(
       () => ListView.separated(
+          physics: scrollable ? null : const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (_, index) => Obx(() {
                 final item = controller.cartItems[index];
@@ -74,8 +75,10 @@ class TCartItems extends StatelessWidget {
                             ],
                           ),
                           //Product total price
-                          TProductPriceText(
-                            price: (item.price * item.quantity).toStringAsFixed(1),
+                          Expanded(
+                            child: TProductPriceText(
+                              price: (item.price * item.quantity).toStringAsFixed(1),
+                            ),
                           ),
                            // TProductPriceText(price: (item.price * item.quantity).toStringAsFixed(1)),
                         ],

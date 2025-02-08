@@ -1,6 +1,7 @@
 class CartItemModel {
   String productId;
   String title;
+  String? category;
   double _price;
   String? image;
   int quantity;
@@ -10,6 +11,7 @@ class CartItemModel {
 
   CartItemModel({required this.productId,
     this.title = ' ',
+    this.category ,
     double price = 0.0,
     this.image,
     required this.quantity,
@@ -33,6 +35,7 @@ class CartItemModel {
     return {
       'productId': productId,
       'title': title,
+      'category':category,
       'price': _price,
       'image': image,
       'quantity': quantity,
@@ -46,6 +49,7 @@ class CartItemModel {
     return CartItemModel(
         productId: json['productId'],
         title: json['title'],
+        category: json['category'],
         price: json['price']?.toDouble(),
         image: json['image'],
         quantity: json['quantity'],

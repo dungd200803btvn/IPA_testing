@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -111,5 +112,35 @@ Future<String> uploadImage(String path,XFile image) async{
     throw 'Something went wrong. Please try again';
   }
 }
+
+  Future<void> updatePointsUsers() async {
+    try {
+      final querySnapshot = await _db.collection('User').get();
+      for (var doc in querySnapshot.docs) {
+        final data = doc.data();
+        if (!data.containsKey('Points')) {
+          await doc.reference.update({'Points': 100000});
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error updating points: $e');
+      }
+    }
+  }
+
+  Future<void> updateUserPoints(String userId, num newPoints) async {
+    try {
+      await _db.collection("User").doc(userId).update({"points": newPoints});
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
 }

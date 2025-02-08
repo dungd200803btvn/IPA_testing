@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:t_store/features/shop/controllers/product/cart_controller.dart';
 
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/formatter/formatter.dart';
 import 'package:t_store/utils/helper/pricing_calculator.dart';
 
+import '../../../../voucher/controllers/voucher_controller.dart';
 import '../../../controllers/product/order_controller.dart';
 class TBillingAmountSection extends StatelessWidget {
   const TBillingAmountSection({super.key});
@@ -14,6 +17,7 @@ class TBillingAmountSection extends StatelessWidget {
     final cartController = CartController.instance;
     final orderController = OrderController.instance;
     final subTotal = cartController.totalCartPrice.value;
+    final controller = VoucherController.instance;
     return Column(
       children: [
         //SubTotal
@@ -21,7 +25,7 @@ class TBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal',style: Theme.of(context).textTheme.bodyMedium,),
-            Text('\$$subTotal',style: Theme.of(context).textTheme.bodyMedium,),
+            Text('${DFormatter.formattedAmount(subTotal*24500)} VND',style: Theme.of(context).textTheme.bodyMedium,),
           ],
         ),
         const SizedBox(height: DSize.spaceBtwItem/2,),
@@ -30,28 +34,63 @@ class TBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Shipping Fee',style: Theme.of(context).textTheme.bodyMedium,),
-            Obx(()=> Text('\$${orderController.fee.value.toStringAsFixed(2)}',style: Theme.of(context).textTheme.labelLarge,)) ,
+            Obx(()=> Text('${DFormatter.formattedAmount(orderController.fee.value*24500)} VND',style: Theme.of(context).textTheme.labelLarge,)) ,
           ],
         ),
         const SizedBox(height: DSize.spaceBtwItem/2,),
-        // //Tax Fee
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Text('Tax Fee',style: Theme.of(context).textTheme.bodyMedium,),
-        //     Text('\$${DPricingCalculator.caculateTax(subTotal, 'US')}',style: Theme.of(context).textTheme.labelLarge,),
-        //   ],
-        // ),
-        // const SizedBox(height: DSize.spaceBtwItem/2,),
         ///Order total
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Order Total',style: Theme.of(context).textTheme.bodyMedium,),
-            Obx(()=> Text('\$${orderController.totalAmount.value.toStringAsFixed(2)}',style: Theme.of(context).textTheme.labelLarge,)) ,
+            Obx(()=> Text('${DFormatter.formattedAmount(orderController.totalAmount.value*24500)} VND',style: Theme.of(context).textTheme.labelLarge,)) ,
           ],
         ),
         const SizedBox(height: DSize.spaceBtwItem/2,),
+
+        // Chèn các dòng voucher đã áp dụng (nếu có)
+        Obx(
+              () => Column(
+            children: controller.appliedVouchersInfo.map((voucherInfo) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: DSize.spaceBtwItem / 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        'Voucher: ${voucherInfo.type}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis, // Cắt bỏ phần text vượt quá
+                        maxLines: 1,
+                      ),
+                    ),
+                    Flexible(
+                      child: Text(
+                        '- ${DFormatter.formattedAmount(voucherInfo.discountValue)} VND',
+                        style: Theme.of(context).textTheme.labelLarge,
+                        overflow: TextOverflow.ellipsis, // Cắt bỏ phần text vượt quá
+                        maxLines: 1,
+                        textAlign: TextAlign.end, // Căn chỉnh text về phía bên phải nếu cần
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+
+        //Net total
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Net Total',style: Theme.of(context).textTheme.bodyMedium,),
+            Obx((){
+             return Text('${DFormatter.formattedAmount(orderController.netAmount.value*24500)}   VND',style: Theme.of(context).textTheme.labelLarge,);
+    } ) ,
+          ],
+        ),
       ],
     );
   }

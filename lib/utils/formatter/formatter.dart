@@ -36,4 +36,8 @@ class DFormatter{
     return formattedNumber.toString();
   }
 
+  static String formattedAmount(num amount){
+    return NumberFormat("#,###","en_US").format(amount);
+  }
+
 }
